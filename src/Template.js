@@ -12,7 +12,7 @@ function Header() {
         <a href="#" className="text-light">
           About Us
         </a>
-        <a href="#" className="text-light">
+        <a href="/login" className="text-light">
           (either login and sign up, or logout)
         </a>
       </div>
