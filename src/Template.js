@@ -1,4 +1,4 @@
-function Header() {
+export function Header() {
   return (
     <div className="header d-flex justify-content-between align-items-center">
       <div className="header-logo">
@@ -20,7 +20,7 @@ function Header() {
   );
 }
 
-function Footer() {
+export function Footer() {
   return (
     <div className="footer">
       <p>Team Sad Cat FTW!</p>
@@ -34,10 +34,10 @@ function Template({ headline }) {
   return (
     <div
       className="d-flex flex-column min-vh-100"
-      style={{ "background-color": "#444040" }}
+      style={{ backgroundColor: "#444040" }}
     >
       <Header />
-      <div class="content flex-grow-1">
+      <div className="content flex-grow-1">
         <h2>{headline}</h2>
       </div>
       <Footer />
