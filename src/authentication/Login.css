@@ -1,11 +1,14 @@
+/* root {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+} */
 .login {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #444040;
-  }
+  align-items: center;
+  justify-content: center;
+  background-color: #444040;
+}
   .login__container {
     display: flex;
     flex-direction: column;

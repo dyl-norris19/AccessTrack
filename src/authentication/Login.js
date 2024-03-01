@@ -19,9 +19,9 @@ export function Login() {
   }, [user, loading]);
 
   return (
-    <>
+    <div className="d-flex flex-column min-vh-100">
       <Header />
-      <div className="login">
+      <div className="login min-vh-100">
         <div className="login__container">
           <input
             type="text"
@@ -52,6 +52,6 @@ export function Login() {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
