@@ -1,10 +1,10 @@
-export function Header() {
+export function Header({ headerTitle }) {
   return (
     <div className="header d-flex justify-content-between align-items-center">
       <div className="header-logo">
         <img src="../public/logo.png" alt="Logo" height="40" />
       </div>
-      <h1>Header Title</h1>
+      <h1>{headerTitle}</h1>
       <div className="header-links">
         <a href="/" className="text-light">
           Home
@@ -13,7 +13,7 @@ export function Header() {
           About Us
         </a>
         <a href="/login" className="text-light">
-          (either login and sign up, or logout)
+          Login
         </a>
       </div>
     </div>
@@ -36,7 +36,7 @@ function Template({ headline }) {
       className="d-flex flex-column min-vh-100"
       style={{ backgroundColor: "#444040" }}
     >
-      <Header />
+      <Header headerTitle={"Template Page"} />
       <div className="content flex-grow-1">
         <h2>{headline}</h2>
       </div>

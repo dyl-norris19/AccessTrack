@@ -3,6 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, registerWithEmailAndPassword } from "../firebase";
 import "./Register.css";
+import { Header, Footer } from "../Template";
 
 export function Register() {
   const [email, setEmail] = useState("");
@@ -19,36 +20,40 @@ export function Register() {
     if (user) history("/dashboard", { replace: true });
   }, [user, loading, history]);
   return (
-    <div className="register">
-      <div className="register__container">
-        <input
-          type="text"
-          className="register__textBox"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Full Name"
-        />
-        <input
-          type="text"
-          className="register__textBox"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="E-mail Address"
-        />
-        <input
-          type="password"
-          className="register__textBox"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-        <button className="register__btn" onClick={register}>
-          Register
-        </button>
-        <div>
-          Already have an account? <Link to="/">Login</Link> now.
+    <div className="d-flex flex-column min-vh-100">
+      <Header headerTitle={"Create an Account"} />
+      <div className="register flex-grow-1 d-flex">
+        <div className="register__container">
+          <input
+            type="text"
+            className="register__textBox"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Full Name"
+          />
+          <input
+            type="text"
+            className="register__textBox"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="E-mail Address"
+          />
+          <input
+            type="password"
+            className="register__textBox"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+          />
+          <button className="register__btn" onClick={register}>
+            Register
+          </button>
+          <div>
+            Already have an account? <Link to="/login">Login</Link> now.
+          </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

@@ -20,7 +20,7 @@ export function Login() {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      <Header />
+      <Header headerTitle={"Login"} />
       <div className="login min-vh-100">
         <div className="login__container">
           <input
