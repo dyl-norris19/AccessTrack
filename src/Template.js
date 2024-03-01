@@ -21,9 +21,17 @@ export function Header({ headerTitle }) {
 }
 
 export function Footer() {
+  const centeredTextStyle = {
+    flex: 1,
+    textAlign: "center",
+    margin: 0,
+  };
   return (
-    <div className="footer">
-      <p>Team Sad Cat FTW!</p>
+    <div className="footer d-flex justify-content-between align-items-center">
+      <p style={centeredTextStyle}>Team Sad Cat FTW!</p>
+      <a href="/register" className="text-light">
+        Create an Account
+      </a>
     </div>
   );
 }
