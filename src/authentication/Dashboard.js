@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 import { auth, db, logout } from "../firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
+import { Header, Footer } from "../Template";
 
 export function Dashboard() {
   const [user, loading, error] = useAuthState(auth);
@@ -26,15 +27,19 @@ export function Dashboard() {
     fetchUserName();
   }, [user, loading]);
   return (
-    <div className="dashboard">
-      <div className="dashboard__container">
-        Logged in as
-        <div>{name}</div>
-        <div>{user?.email}</div>
-        <button className="dashboard__btn" onClick={logout}>
-          Logout
-        </button>
+    <div className="d-flex flex-column min-vh-100">
+      <Header headerTitle={"This will be the Edit Profile Page"} />
+      <div className="dashboard flex-grow-1 d-flex">
+        <div className="dashboard__container">
+          Logged in as
+          <div>{name}</div>
+          <div>{user?.email}</div>
+          <button className="dashboard__btn" onClick={logout}>
+            Logout
+          </button>
+        </div>
       </div>
+      <Footer />
     </div>
   );
 }
