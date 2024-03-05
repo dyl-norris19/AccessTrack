@@ -1,3 +1,26 @@
+import { auth } from "./firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+function LoginButton() {
+  const [user, loading, error] = useAuthState(auth);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  if (user) {
+    return (
+      <a href="/dashboard" className="text-light">
+        Profile
+      </a>
+    );
+  }
+  return (
+    <a href="/login" className="text-light">
+      Login
+    </a>
+  );
+}
+
 export function Header({ headerTitle }) {
   return (
     <div className="header d-flex justify-content-between align-items-center">
@@ -12,9 +35,7 @@ export function Header({ headerTitle }) {
         <a href="#" className="text-light">
           About Us
         </a>
-        <a href="/login" className="text-light">
-          Login
-        </a>
+        <LoginButton />
       </div>
     </div>
   );

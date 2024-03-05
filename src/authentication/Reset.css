@@ -1,9 +1,10 @@
 .reset {
-    height: 100vh;
+    /* height: 100vh; */
     width: 100vw;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center;    
+    background-color: #444040;
   }
   .reset__container {
     display: flex;

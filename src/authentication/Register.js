@@ -22,7 +22,7 @@ export function Register() {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Header headerTitle={"Create an Account"} />
-      <div className="register flex-grow-1 d-flex">
+      <div className="register  flex-grow-1 d-flex">
         <div className="register__container">
           <input
             type="text"
