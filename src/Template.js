@@ -1,10 +1,33 @@
-function Header() {
+import { auth } from "./firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+function LoginButton() {
+  const [user, loading, error] = useAuthState(auth);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  if (user) {
+    return (
+      <a href="/dashboard" className="text-light">
+        Profile
+      </a>
+    );
+  }
+  return (
+    <a href="/login" className="text-light">
+      Login
+    </a>
+  );
+}
+
+export function Header({ headerTitle }) {
   return (
     <div className="header d-flex justify-content-between align-items-center">
       <div className="header-logo">
-        <img src="../public/logo.png" alt="Logo" height="40" />
+        <img src="./logo.png" alt="Logo" height="40" />
       </div>
-      <h1>Header Title</h1>
+      <h1>{headerTitle}</h1>
       <div className="header-links">
         <a href="/" className="text-light">
           Home
@@ -12,18 +35,24 @@ function Header() {
         <a href="#" className="text-light">
           About Us
         </a>
-        <a href="#" className="text-light">
-          (either login and sign up, or logout)
-        </a>
+        <LoginButton />
       </div>
     </div>
   );
 }
 
-function Footer() {
+export function Footer() {
+  const centeredTextStyle = {
+    flex: 1,
+    textAlign: "center",
+    margin: 0,
+  };
   return (
-    <div className="footer">
-      <p>Team Sad Cat FTW!</p>
+    <div className="footer d-flex justify-content-between align-items-center">
+      <p style={centeredTextStyle}>Team Sad Cat FTW!</p>
+      <a href="/register" className="text-light">
+        Create an Account
+      </a>
     </div>
   );
 }
@@ -34,10 +63,10 @@ function Template({ headline }) {
   return (
     <div
       className="d-flex flex-column min-vh-100"
-      style={{ "background-color": "#444040" }}
+      style={{ backgroundColor: "#444040" }}
     >
-      <Header />
-      <div class="content flex-grow-1">
+      <Header headerTitle={"Template Page"} />
+      <div className="content flex-grow-1">
         <h2>{headline}</h2>
       </div>
       <Footer />

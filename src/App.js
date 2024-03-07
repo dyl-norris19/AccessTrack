@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Template from "./Template";
+import { Login, Register, Reset, Dashboard } from "./authentication";
 
 function App() {
   return (
@@ -9,6 +10,10 @@ function App() {
           path="/"
           element={<Template headline="index.js -> App.js -> Template.js" />}
         />
+        <Route path="/login" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
+        <Route exact path="/reset" element={<Reset />} />
+        <Route exact path="/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );
