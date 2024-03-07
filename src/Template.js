@@ -25,7 +25,7 @@ export function Header({ headerTitle }) {
   return (
     <div className="header d-flex justify-content-between align-items-center">
       <div className="header-logo">
-        <img src="../public/logo.png" alt="Logo" height="40" />
+        <img src="./logo.png" alt="Logo" height="40" />
       </div>
       <h1>{headerTitle}</h1>
       <div className="header-links">
