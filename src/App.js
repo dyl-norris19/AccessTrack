@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Template from "./Template";
 import { Login, Register, Reset, Dashboard } from "./authentication";
+import AboutUs from "./AboutUs";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/Register" element={<Register />} />
         <Route exact path="/reset" element={<Reset />} />
         <Route exact path="/dashboard" element={<Dashboard />} />
+        <Route exact path="/about" element={<AboutUs />} />
       </Routes>
     </BrowserRouter>
   );

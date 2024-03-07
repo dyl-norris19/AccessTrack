@@ -32,7 +32,7 @@ export function Header({ headerTitle }) {
         <a href="/" className="text-light">
           Home
         </a>
-        <a href="#" className="text-light">
+        <a href="/about" className="text-light">
           About Us
         </a>
         <LoginButton />
