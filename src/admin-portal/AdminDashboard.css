@@ -1,0 +1,153 @@
+body {
+    background-color: #1E1E1E;
+}
+
+.pin-in-focus {
+    display: flex;
+    background-color: #D9D9D9;
+    margin-left: 65px;
+    margin-block: 45px;
+    padding-left: 25px;
+    padding-top: 20px;
+    border-radius: 30px;
+    width: 1030px;
+}
+
+.image-and-tag {
+    padding-right: 10px;
+    width: 260px;
+}
+
+.pin-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+    background-color: white;
+    border-radius: 50%;
+    width: 250px;
+    height: 250px;
+}
+
+.info-side {
+    margin-left: 5px;
+}
+
+.title {
+    margin: 0px;
+    height: 64px;
+    font-size: 64px;
+    font-weight: 400;
+}
+
+.info-side > p {
+    color: #6F6F6F;
+    margin-bottom: 15px;
+    font-weight: 600;
+    padding-left: 10px;
+}
+
+.location-and-rating {
+    margin-block: 0px;
+    font-size: 45px;
+    font-weight: 400;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.rating > img {
+    margin-left: 5px;
+}
+
+.description {
+    padding-block: 10px;
+    padding-inline: 15px;
+    background-color: white;
+    border-radius: 30px;
+    width: 630px;
+    height: 300px;
+}
+
+.description > h1 {
+    font-size: 30px;
+    font-weight: 400;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 75px;
+}
+
+.button-container > button {
+    margin-inline: 50px;
+}
+
+.remove-button {
+    background-color: red;
+    border-color: black;
+    border-radius: 20px;
+    border-width: 5px;
+    width: 150px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.edit-button {
+    background-color: #00FF00;
+    border-color: black;
+    border-radius: 20px;
+    border-width: 5px;
+    width: 150px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.pin-list-container {
+    margin-block: 45px;
+    margin-left: 50px;
+    width: 525px;
+    max-height: 622px;
+    overflow-y: auto;
+}
+
+.pin-item {
+    background-color: #D9D9D9;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-inline: 15px;
+    border-radius: 30px;
+    width: 500px;
+    height: 150px;
+}
+
+.image-placeholder {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+.pin-list-title {
+    margin-top: 5px;
+    margin-left: 5px;
+    font-size: 64px;
+    font-weight: 400;
+}
+
+.pin-list-time {
+    margin-left: 15px;
+    color: #6F6F6F;
+}
