@@ -43,3 +43,122 @@ export function Dashboard() {
     </div>
   );
 }
+
+export function EditProfile() {
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [location, setLocation] = useState("");
+  const [bio, setBio] = useState("");
+  const [photo, setPhoto] = useState(null);
+
+  const handlePhotoChange = (event) => {
+    const selectedPhoto = event.target.files[0];
+    // handle photo upload logic here
+    setPhoto(selectedPhoto);
+  };
+
+  const handleSaveChanges = () => {
+    // handle save changes logic here
+  };
+
+  const handleCancel = () => {
+    // handle cancel logic here
+  };
+
+  return (
+    <div
+      className="d-flex flex-column min-vh-100"
+      style={{ backgroundColor: "#444040", color: "#fff" }}
+    >
+      <Header headerTitle={"Edit Profile"} />
+      <div className="container mt-5">
+        <h2>Edit Profile</h2>
+        <div className="row mb-3">
+          <div className="col">
+            <label htmlFor="username" className="form-label">
+              Change Username:
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              style={{ backgroundColor: "#565656", color: "#fff" }}
+            />
+          </div>
+          <div className="col">
+            <label htmlFor="name" className="form-label">
+              Change Name:
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              style={{ backgroundColor: "#565656", color: "#fff" }}
+            />
+          </div>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="location" className="form-label">
+            Location:
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            style={{ backgroundColor: "#565656", color: "#fff" }}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="photo" className="form-label">
+            Photo:
+          </label>
+          <input
+            type="file"
+            className="form-control"
+            id="photo"
+            accept="image/*"
+            onChange={handlePhotoChange}
+            style={{ backgroundColor: "#565656", color: "#fff" }}
+          />
+          {photo && (
+            <img
+              src={URL.createObjectURL(photo)}
+              alt="Selected"
+              className="mt-2 img-thumbnail"
+              style={{ maxWidth: "100px" }}
+            />
+          )}
+        </div>
+        <div className="mb-3">
+          <label htmlFor="bio" className="form-label">
+            Bio:
+          </label>
+          <textarea
+            className="form-control"
+            id="bio"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            style={{ backgroundColor: "#565656", color: "#fff" }}
+          />
+        </div>
+        <button
+          className="btn btn-primary me-2"
+          style={{ backgroundColor: "#6EE05B" }}
+          onClick={handleSaveChanges}
+        >
+          Confirm my choices
+        </button>
+        <button className="btn btn-secondary" onClick={handleCancel}>
+          Cancel
+        </button>
+      </div>
+      <Footer />
+    </div>
+  );
+}

@@ -23,3 +23,58 @@
   .dashboard div {
     margin-top: 7px;
   }
+
+/*
+  .edit-profile-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .edit-profile-container h2 {
+    grid-column: 1 / -1;
+  }
+  
+  .edit-profile-container label {
+    grid-column: 1 / -1;
+  }
+  
+  .edit-profile-container input[type="text"],
+  .edit-profile-container textarea {
+    width: calc(100% - 16px);
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .edit-profile-container input[type="file"] {
+    margin-top: 5px;
+  }
+  
+  .edit-profile-container img {
+    margin-top: 5px;
+    max-width: 100%;
+    height: auto;
+    grid-column: 1 / -1;
+  }
+  
+  .edit-profile-container button {
+    grid-column: 1 / -1;
+    justify-self: center;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .edit-profile-container button:hover {
+    background-color: #0056b3;
+  } */
