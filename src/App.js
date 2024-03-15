@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Template from "./Template";
 import { Login, Register, Reset, Dashboard } from "./authentication";
 import AboutUs from "./AboutUs";
+import { DatabaseStuff } from "./database";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route exact path="/reset" element={<Reset />} />
         <Route exact path="/dashboard" element={<Dashboard />} />
         <Route exact path="/about" element={<AboutUs />} />
+        <Route exact path="/database" element={<DatabaseStuff />} />
       </Routes>
     </BrowserRouter>
   );
