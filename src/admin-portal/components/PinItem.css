@@ -1,0 +1,44 @@
+.pin-item {
+    background-color: #D9D9D9;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-inline: 15px;
+    border-radius: 30px;
+    width: 500px;
+    height: 150px;
+}
+
+.image-placeholder {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+.image-placeholder > img {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+.pin-list-title {
+    margin-top: 5px;
+    margin-left: 5px;
+    font-size: 64px;
+    font-weight: 400;
+}
+
+.pin-list-time {
+    margin-left: 15px;
+    color: #6F6F6F;
+}
