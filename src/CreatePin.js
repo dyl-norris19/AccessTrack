@@ -43,11 +43,11 @@ export function CreatePin(){
         console.error(error);
       }
     });
-    useEffect(() => {
+  }
+  useEffect(() => {
       if (loading) return;
       if (newPin == 1) history("/dashboard", { replace: true });
-    }, [newPin, loading, history]);
-  }
+  }, [newPin, loading, history]);
   return(
     <div className="d-flex flex-column min-vh-100">
       <Header headerTitle={"Create a Pin"} />
