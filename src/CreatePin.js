@@ -21,7 +21,11 @@ export function CreatePin(){
   const createPin = () => {
     if (!newTitle) alert("Please enter a title");
     if (isNaN(longNum)) alert("Please enter a number in longitude");
-    if (isNaN(longNum)) alert("Please enter a number in latitude");
+    if (longNum > 180.0) alert("Longitude must be lower than 180");
+    if (longNum < -180.0) alert("Longitude must be higer than -180");
+    if (isNaN(latNum)) alert("Please enter a number in latitude");
+    if (latNum > 180.0) alert("Latitude must be lower than 180");
+    if (latNum < -180.0) alert("Latitude must be higer than -180");
     setLocation(new GeoPoint(longNum, latNum));
     getCurrentUserId().then((uid) => {
       const pin = {
