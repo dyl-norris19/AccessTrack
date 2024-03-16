@@ -39,6 +39,7 @@ export function CreatePin(){
       try {
         createPin(pin);
         isPinMade(1);
+        console.log("Pin Success!");
       } catch (error) {
         console.error(error);
       }
@@ -46,6 +47,7 @@ export function CreatePin(){
   }
   useEffect(() => {
       if (loading) return;
+      console.log("Returning to dashboard!");
       if (newPin == 1) history("/dashboard");
   }, [newPin, loading, history]);
   return(
