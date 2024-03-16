@@ -15,7 +15,6 @@ export function CreatePin(){
   const [newText, setText] = useState("");
   const [longNum, setLong] = useState("");
   const [latNum, setLat] = useState("");
-  const [newLocation, setLocation] = useState(new GeoPoint(0.0, 0.0));
   const [newPin, isPinMade] = useState(0);
   const [user, loading, error] = useAuthState(auth);
   const history = useNavigate();
@@ -25,14 +24,13 @@ export function CreatePin(){
     if (longNum > 180.0) alert("Longitude must be lower than 180");
     if (longNum < -180.0) alert("Longitude must be higer than -180");
     if (isNaN(latNum)) alert("Please enter a number in latitude");
-    if (latNum > 180.0) alert("Latitude must be lower than 180");
-    if (latNum < -180.0) alert("Latitude must be higer than -180");
-    setLocation(new GeoPoint(longNum, latNum));
+    if (latNum > 90.0) alert("Latitude must be lower than 90");
+    if (latNum < -90.0) alert("Latitude must be higer than -90");
     getCurrentUserId().then((uid) => {
       const pin = {
         title: newTitle,
         description: newText,
-        location: newLocation,
+        location: new GeoPoint(latNum, longNum),
         timestamp: Timestamp.now(),
         creator: uid,
       };
