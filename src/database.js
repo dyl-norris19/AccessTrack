@@ -218,4 +218,4 @@ function DatabaseStuff() {
   );
 }
 
-export { DatabaseStuff, retrievePins, createPin };
+export { DatabaseStuff, retrievePins, createPin, getCurrentUserId };
