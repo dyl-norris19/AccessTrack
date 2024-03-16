@@ -2,9 +2,9 @@ import {createPin, getCurrentUserId} from "./database.js"
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../firebase";
+import { auth } from "./firebase";
 import "./CreatePin.css";
-import { Header, Footer } from "../Template";
+import { Header, Footer } from "./Template";
 import {
   GeoPoint,
   Timestamp,
