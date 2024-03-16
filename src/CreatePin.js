@@ -17,7 +17,6 @@ export function CreatePin(){
   const [latNum, setLat] = useState("");
   const [newLocation, setLocation] = useState(new GeoPoint(0.0, 0.0));
   const [user, loading, error] = useAuthState(auth);
-  const []
   const history = useNavigate();
   const createPin = () => {
     if (!newTitle) alert("Please enter a title");
