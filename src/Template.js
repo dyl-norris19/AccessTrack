@@ -21,6 +21,26 @@ function LoginButton() {
   );
 }
 
+function CreatePinButton() {
+  const [user, loading, error] = useAuthState(auth);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  if (user) {
+    return (
+      <a href="/createPin" className="text-light">
+        Create Pin
+      </a>
+    );
+  }
+  return (
+    <a href="/" className="text-light">
+       Create Pin
+    </a>
+  );
+}
+
 export function Header({ headerTitle }) {
   return (
     <div className="header d-flex justify-content-between align-items-center">
@@ -36,6 +56,7 @@ export function Header({ headerTitle }) {
           About Us
         </a>
         <LoginButton />
+        <CreatePinButton />
       </div>
     </div>
   );
