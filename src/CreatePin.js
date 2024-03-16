@@ -28,7 +28,7 @@ export function CreatePin(){
         title: newTitle,
         description: newText,
         location: newLocation,
-        timestamp: Timestamp.now();
+        timestamp: Timestamp.now(),
         creator: uid,
       };
       try {
