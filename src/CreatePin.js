@@ -48,7 +48,7 @@ export function CreatePin(){
   useEffect(() => {
       if (loading) return;
       console.log("Returning to dashboard!");
-      if (newPin == 1) history("/dashboard");
+      if (newPin == 1) history("/");
   }, [newPin, loading, history]);
   return(
     <div className="d-flex flex-column min-vh-100">
