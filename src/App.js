@@ -9,6 +9,7 @@ import {
 } from "./authentication";
 import AboutUs from "./AboutUs";
 import { DatabaseStuff } from "./database";
+import CreatePin from "./CreatePin";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route exact path="/about" element={<AboutUs />} />
         <Route exact path="/database" element={<DatabaseStuff />} />
         <Route exact path="/dashboard" element={<EditProfile />} />
+        <Route exact path="/createPin" element={<CreatePin />} />
       </Routes>
     </BrowserRouter>
   );
