@@ -22,7 +22,7 @@ export function CreatePin(){
     if (!newTitle) alert("Please enter a title");
     if (isNaN(longNum)) alert("Please enter a number in longitude");
     if (isNaN(longNum)) alert("Please enter a number in latitude");
-    setLocation(new Geopoint(longNum, latNum));
+    setLocation(new GeoPoint(longNum, latNum));
     getCurrentUserId().then((uid) => {
       const pin = {
         title: newTitle,
