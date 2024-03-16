@@ -19,7 +19,7 @@ export function CreatePin(){
   const [newPin, isPinMade] = useState(0);
   const [user, loading, error] = useAuthState(auth);
   const history = useNavigate();
-  const createPin = () => {
+  const createPin2 = () => {
     if (!newTitle) alert("Please enter a title");
     if (isNaN(longNum)) alert("Please enter a number in longitude");
     if (longNum > 180.0) alert("Longitude must be lower than 180");
@@ -83,7 +83,7 @@ export function CreatePin(){
             onChange={(e) => setLat(e.target.value)}
             placeholder="Location Latitude"
           />
-          <button className="create__btn" onClick={createPin}>
+          <button className="create__btn" onClick={createPin2}>
             Create Pin
           </button>
           <div>
