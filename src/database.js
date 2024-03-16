@@ -218,4 +218,13 @@ function DatabaseStuff() {
   );
 }
 
-export { DatabaseStuff, retrievePins, createPin };
+export {
+  DatabaseStuff,
+  retrievePins,
+  createPin,
+  retrieveReports,
+  createReport,
+  retrieveRatings,
+  createRating,
+  getCurrentUserId,
+};
