@@ -16,6 +16,7 @@ export function CreatePin(){
   const [longNum, setLong] = useState("");
   const [latNum, setLat] = useState("");
   const [newLocation, setLocation] = useState(new GeoPoint(0.0, 0.0));
+  const [newPin, isPinMade] = useState(0);
   const [user, loading, error] = useAuthState(auth);
   const history = useNavigate();
   const createPin = () => {
@@ -37,11 +38,15 @@ export function CreatePin(){
       };
       try {
         createPin(pin);
-        history("/dashboard", { replace: true });
+        isPinMade(1);
       } catch (error) {
         console.error(error);
       }
     });
+    useEffect(() => {
+      if (loading) return;
+      if (newPin == 1) history("/dashboard", { replace: true });
+    }, [newPin, loading, history]);
   }
   return(
     <div className="d-flex flex-column min-vh-100">
