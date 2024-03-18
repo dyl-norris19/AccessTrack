@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<title>Map and Pin Menu</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+
+<style>
+body { margin: 10; padding: 0; }
+#map { position: absolute; top: 0; bottom: 10px; width: 100%; }
+
+/*style for pin menu
+    keep all z-indices at 1/positive integer*/
+.dropbtn {
+  background-color: #3EB12C;
+  min-width: 160px;
+  color: black;
+  padding: 10px;
+  font-family:calibri;
+  font-size: 24px;
+  border: none;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #3EB12C;
+}
+
+.dropdown {
+  float: none;
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+
+  /*makes it checkbox*/
+  input[type="checkbox"] {
+    position: relative;
+    top: -1px;
+    margin-right: 4px;
+  }
+
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  text-align: left;
+  background-color: #3EB12C;
+  font-family:calibri;
+  font-size: 16px;
+  min-width: 160px;
+  overflow-x: hidden;
+  right: 10;
+  z-index: 1;
+
+  /*makes it checkbox*/
+  [type="checkbox"] {
+    position: relative;
+    top: -1px;
+    margin-right: 4px;
+  }
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.dropdown a:hover {background-color: #62CB51;}
+
+.show {display: block;}
+
+/*header style*/
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+</style>
+
+</head>
+
+<body>
+
+  <ul>
+    <li><a class="active" href="#home">Home</a></li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+
+<!--class for pin menu-->
+<div class="dropdown">
+    <button onclick="myFunction()" class="dropbtn">Pins</button>
+    <div id="myDropdown" class="dropdown-content">
+          <input type="checkbox" name="dropdown-group" value="View All Pins" />
+          <label class="dropdown-option">View All Pins</label><br>
+        
+          <input type="checkbox" name="dropdown-group" value="View Pins Near Me" />
+          <label class="dropdown-option">View Pins Near Me</label><br>
+        
+          <input type="checkbox" name="dropdown-group" value="Wheelchair Ramps" />
+          <label class="dropdown-option">Wheelchair Ramps</label><br>
+        
+          <input type="checkbox" name="dropdown-group" value="Crosswalks" />
+          <label class="dropdown-option">Crosswalks</label><br>
+        
+        
+          <input type="checkbox" name="dropdown-group" value="Elevators" />
+          <label class="dropdown-option">Elevators</label><br>
+        
+        
+          <input type="checkbox" name="dropdown-group" value="Dropped Curbs" />
+          <label class="dropdown-option">Dropped Curbs</label>
+        
+
+    </div>
+</div>
+
+
+<div id="map"></div>
+
+
+<script>
+
+    /*access token and functions for map*/
+	mapboxgl.accessToken = 'pk.eyJ1IjoiaGFsZXluZiIsImEiOiJjbHN5c3hzeTcwZ2pwMmltdXUzdHprYWlsIn0._n2hM1vDIHvaBV8fTORxIw';
+    const map = new mapboxgl.Map({
+        container: 'map', // container ID
+        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+        style: 'mapbox://styles/haleynf/cltvx0hq2008j01nogmol3zqa/draft', // style URL
+        center: [-97.14, 33.21], // starting position, uses LONGITUDE, LATITUDE
+        zoom: 14 // starting zoom
+    });
+
+    	// Add zoom and rotation controls to the map.
+    	map.addControl(new mapboxgl.NavigationControl());
+
+        /*functions for pin menu*/
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }   
+      
+  
+        
+
+</script>
+
+</body>
+</html>
