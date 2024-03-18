@@ -36,7 +36,7 @@ function CreatePinButton() {
     );
   }
   return (
-    <a href="/" className="text-light">
+    <a href="/login" className="text-light">
        Create Pin
     </a>
   );
