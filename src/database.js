@@ -10,6 +10,7 @@ import {
   GeoPoint,
   Timestamp,
   addDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { Header } from "./Template";
@@ -103,6 +104,39 @@ function getCurrentUserId() {
       }
     });
   });
+}
+
+// Deletes a report from the database using its document ID
+async function deleteReport(reportId) {
+  try {
+    await deleteDoc(doc(db, "report", reportId));
+    console.log("Report with ID:", reportId, "deleted successfully.");
+  } catch (err) {
+    console.error(err);
+    alert("An error occurred while deleting the report.");
+  }
+}
+
+// Deletes a pin from the database using its document ID
+async function deletePin(pinId) {
+  try {
+    await deleteDoc(doc(db, "pins", pinId));
+    console.log("Pin with ID:", pinId, "deleted successfully.");
+  } catch (err) {
+    console.error(err);
+    alert("An error occurred while deleting the pin.");
+  }
+}
+
+// delete a rating from the database using its document ID
+async function deleteRating(ratingId) {
+  try {
+    await deleteDoc(doc(db, "pinRating", ratingId));
+    console.log("Rating with ID:", ratingId, "deleted successfully.");
+  } catch (err) {
+    console.error(err);
+    alert("An error occurred while deleting the rating.");
+  }
 }
 
 /****************************************************************************************************************************************************************************/
@@ -201,6 +235,63 @@ function DatabaseStuff() {
     }
   }
 
+  // for demonstrating the delete report functionality
+  const [reportIdToDelete, setReportIdToDelete] = useState("");
+
+  async function handleDeleteReport(event) {
+    event.preventDefault(); // keeps the page from reloading after submission
+
+    if (reportIdToDelete.trim() === "") {
+      alert("Please enter a report ID to delete.");
+      return;
+    }
+
+    await deleteReport(reportIdToDelete);
+    setReportIdToDelete("");
+  }
+
+  function handleReportIdChange(event) {
+    setReportIdToDelete(event.target.value);
+  }
+
+  // for demonstrating the delete pin functionality
+  const [pinIdToDelete, setPinIdToDelete] = useState("");
+
+  async function handleDeletePin(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+
+    if (pinIdToDelete.trim() === "") {
+      alert("Please enter a pin ID to delete.");
+      return;
+    }
+
+    await deletePin(pinIdToDelete);
+    setPinIdToDelete("");
+  }
+
+  function handlePinIdChange(event) {
+    setPinIdToDelete(event.target.value);
+  }
+
+  // for demonstrating the delete rating functionality
+  const [ratingIdToDelete, setRatingIdToDelete] = useState("");
+
+  async function handleDeleteRating(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+
+    if (ratingIdToDelete.trim() === "") {
+      alert("Please enter a rating ID to delete.");
+      return;
+    }
+
+    await deleteRating(ratingIdToDelete);
+    setRatingIdToDelete("");
+  }
+
+  function handleRatingIdChange(event) {
+    setRatingIdToDelete(event.target.value);
+  }
+
   return (
     <div>
       <Header headerTitle={"Database Stuff"} />
@@ -214,6 +305,45 @@ function DatabaseStuff() {
       <button onClick={retrieveRatingsMine}>
         Click me to retrieve ratings
       </button>
+
+      {/* Form for deleting a report */}
+      <form onSubmit={handleDeleteReport}>
+        <label>
+          Report ID:
+          <input
+            type="text"
+            value={reportIdToDelete}
+            onChange={handleReportIdChange}
+          />
+        </label>
+        <button type="submit">Delete Report</button>
+      </form>
+
+      {/* Form for deleting a pin */}
+      <form onSubmit={handleDeletePin}>
+        <label>
+          Pin ID:
+          <input
+            type="text"
+            value={pinIdToDelete}
+            onChange={handlePinIdChange}
+          />
+        </label>
+        <button type="submit">Delete Pin</button>
+      </form>
+
+      {/* Form for deleting a rating */}
+      <form onSubmit={handleDeleteRating}>
+        <label>
+          Rating ID:
+          <input
+            type="text"
+            value={ratingIdToDelete}
+            onChange={handleRatingIdChange}
+          />
+        </label>
+        <button type="submit">Delete Rating</button>
+      </form>
     </div>
   );
 }
@@ -222,9 +352,12 @@ export {
   DatabaseStuff,
   retrievePins,
   createPin,
+  deletePin,
   retrieveReports,
   createReport,
+  deleteReport,
   retrieveRatings,
   createRating,
+  deleteRating,
   getCurrentUserId,
 };
