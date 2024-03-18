@@ -1,5 +1,6 @@
 import { auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { Link } from "react-router-dom";
 
 function LoginButton() {
   const [user, loading, error] = useAuthState(auth);
@@ -41,12 +42,23 @@ function CreatePinButton() {
   );
 }
 
+function Logo() {
+  return (
+    <div className="header-logo">
+      <Link to="/">
+        <img src="./logo.png" alt="Logo" height="40" />
+      </Link>
+    </div>
+  );
+}
+
 export function Header({ headerTitle }) {
   return (
     <div className="header d-flex justify-content-between align-items-center">
-      <div className="header-logo">
+      {/* <div className="header-logo">
         <img src="./logo.png" alt="Logo" height="40" />
-      </div>
+      </div> */}
+      <Logo />
       <h1>{headerTitle}</h1>
       <div className="header-links">
         <a href="/" className="text-light">

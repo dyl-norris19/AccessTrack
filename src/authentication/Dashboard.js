@@ -3,7 +3,16 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 import { auth, db, logout } from "../firebase";
-import { query, collection, getDocs, where } from "firebase/firestore";
+import {
+  query,
+  collection,
+  getDocs,
+  where,
+  doc,
+  setDoc,
+  updateDoc,
+  getDoc,
+} from "firebase/firestore";
 import { Header, Footer } from "../Template";
 
 export function Dashboard() {
@@ -50,6 +59,9 @@ export function EditProfile() {
   const [location, setLocation] = useState("");
   const [bio, setBio] = useState("");
   const [photo, setPhoto] = useState(null);
+  const [user, loading, error] = useAuthState(auth);
+
+  const navigate = useNavigate();
 
   const handlePhotoChange = (event) => {
     const selectedPhoto = event.target.files[0];
@@ -57,14 +69,46 @@ export function EditProfile() {
     setPhoto(selectedPhoto);
   };
 
-  const handleSaveChanges = () => {
-    // handle save changes logic here
-  };
+  async function handleSaveChanges() {
+    try {
+      // Check if the user already has a profile document
+      const profileRef = doc(db, "profiles", user.uid);
+      const profileDoc = await getDoc(profileRef);
+
+      if (profileDoc.exists()) {
+        // Update the existing profile
+        await updateDoc(profileRef, {
+          username,
+          name,
+          location,
+          bio,
+          // Add other fields as needed
+        });
+        console.log("Profile updated successfully");
+      } else {
+        // Create a new profile document
+        await setDoc(profileRef, {
+          username,
+          name,
+          location,
+          bio,
+          // Add other fields as needed
+        });
+        console.log("New profile created successfully");
+      }
+    } catch (error) {
+      console.error("Error saving profile:", error);
+    }
+  }
 
   const handleCancel = () => {
-    // handle cancel logic here
+    navigate("/");
   };
 
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/");
+  }, [user, loading]);
   return (
     <div
       className="d-flex flex-column min-vh-100"
