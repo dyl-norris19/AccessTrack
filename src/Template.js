@@ -1,5 +1,4 @@
 import { auth } from "./firebase";
-import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
 
@@ -25,15 +24,19 @@ function LoginButton() {
 
 function CreatePinButton() {
   const [user, loading, error] = useAuthState(auth);
-  const [link, changeLink] = useState("");
   
   if (loading) {
     return <p>Loading...</p>;
   }
-  if (user) changeLink("createPin");
-  if (!user) changeLink("login");
+  if (user) {
+    return (
+      <a href="/createPin" className="text-light">
+        Create Pin
+      </a>
+    );
+  }
   return (
-    <a href="/" onclick="location.href=this.href+link;">
+    <a href="/login" className="text-light">
        Create Pin
     </a>
   );
