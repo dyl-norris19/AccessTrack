@@ -29,10 +29,10 @@ function CreatePinButton() {
   if (loading) {
     return <p>Loading...</p>;
   }
-  if (user) link = "/createPin";
-  if (!user) link = "/login";
+  if (user) link = "createPin";
+  if (!user) link = "login";
   return (
-    <a href="' + link + '" className="text-light">
+    <a href="/" className="text-light" onclick="location.href=this.href+link;return false;">
        Create Pin
     </a>
   );
