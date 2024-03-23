@@ -1,4 +1,4 @@
 export { Login } from "./Login";
 export { Register } from "./Register";
 export { Reset } from "./Reset";
-export { Dashboard, EditProfile } from "./Dashboard";
+export { Logout, EditProfile } from "./Dashboard";

@@ -18,12 +18,9 @@ import { Header } from "./Template";
 // retreives all pins from the database, and returns said pins
 async function retrievePins() {
   try {
-    const q = query(collection(db, "pins"));
-    const doc = await getDocs(q);
+    const queryContainer = query(collection(db, "pins"));
+    const doc = await getDocs(queryContainer);
     return doc;
-    // doc.forEach((doc) => {
-    //   console.log(doc.id, " => ", doc.data());
-    // });
   } catch (err) {
     console.error(err);
     alert("An error occured while fetching pins");
@@ -41,7 +38,7 @@ async function retrieveReports() {
     // });
   } catch (err) {
     console.error(err);
-    alert("An error occured while fetching pins");
+    alert("An error occured while fetching reports");
   }
 }
 
@@ -56,7 +53,7 @@ async function retrieveRatings() {
     // });
   } catch (err) {
     console.error(err);
-    alert("An error occured while fetching pins");
+    alert("An error occured while fetching ratings");
   }
 }
 

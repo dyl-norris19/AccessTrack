@@ -15,7 +15,7 @@ import {
 } from "firebase/firestore";
 import { Header, Footer } from "../Template";
 
-export function Dashboard() {
+export function Logout() {
   const [user, loading, error] = useAuthState(auth);
   const [name, setName] = useState("");
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ export function Dashboard() {
   }, [user, loading]);
   return (
     <div className="d-flex flex-column min-vh-100">
-      <Header headerTitle={"This will be the Edit Profile Page"} />
+      <Header headerTitle={"Logout"} />
       <div className="dashboard flex-grow-1 d-flex">
         <div className="dashboard__container">
           Logged in as
@@ -100,10 +100,6 @@ export function EditProfile() {
       console.error("Error saving profile:", error);
     }
   }
-
-  const handleCancel = () => {
-    navigate("/");
-  };
 
   useEffect(() => {
     if (loading) return;
@@ -198,7 +194,12 @@ export function EditProfile() {
         >
           Confirm my choices
         </button>
-        <button className="btn btn-secondary" onClick={handleCancel}>
+        <button
+          className="btn btn-secondary"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           Cancel
         </button>
       </div>
