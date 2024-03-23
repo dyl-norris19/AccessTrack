@@ -24,19 +24,15 @@ function LoginButton() {
 
 function CreatePinButton() {
   const [user, loading, error] = useAuthState(auth);
+  link = "";
   
   if (loading) {
     return <p>Loading...</p>;
   }
-  if (user) {
-    return (
-      <a href="/createPin" className="text-light">
-        Create Pin
-      </a>
-    );
-  }
+  if (user) link = "/createPin";
+  if (!user) link = "/login";
   return (
-    <a href="/login" className="text-light">
+    <a href=link className="text-light">
        Create Pin
     </a>
   );
