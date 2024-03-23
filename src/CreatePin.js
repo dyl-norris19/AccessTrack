@@ -21,13 +21,19 @@ export function CreatePin(){
 
   function checkPin()
   {
-        if (!newTitle) {alert("Please enter a title"); return 1;}
-        if (isNaN(longNum)) {alert("Please enter a number in longitude"); return 1;}
-        if (longNum > 180.0) {alert("Longitude must be lower than 180"); return 1;}
-        if (longNum < -180.0) {alert("Longitude must be higer than -180"); return 1;}
-        if (isNaN(latNum)) {alert("Please enter a number in latitude"); return 1;}
-        if (latNum > 90.0) {alert("Latitude must be lower than 90"); return 1;}
-        if (latNum < -90.0) {alert("Latitude must be higer than -90"); return 1;}
+        if (!newTitle) alert("Please enter a title")
+        if (isNaN(longNum)) alert("Please enter a number in longitude")
+        if (longNum > 180.0) alert("Longitude must be lower than 180")
+        if (longNum < -180.0) alert("Longitude must be higer than -180")
+        if (isNaN(latNum)) alert("Please enter a number in latitude")
+        if (latNum > 90.0) alert("Latitude must be lower than 90")
+        if (latNum < -90.0) alert("Latitude must be higer than -90")
+        
+        if ((!newTitle) || (isNaN(longNum)) || (longNum > 180.0) ||
+            (longNum < -180.0) || (isNaN(latNum)) || (latNum > 90.0) || (latNum < -90.0))
+        {
+           return 1;
+        }
         return 0;
   }
   
