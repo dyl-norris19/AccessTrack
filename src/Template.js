@@ -24,7 +24,7 @@ function LoginButton() {
 
 function CreatePinButton() {
   const [user, loading, error] = useAuthState(auth);
-  let link = "";
+  <script> let link = ""; </script>
   
   if (loading) {
     return <p>Loading...</p>;
