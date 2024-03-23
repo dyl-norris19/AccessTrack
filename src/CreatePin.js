@@ -18,6 +18,12 @@ export function CreatePin(){
   const [user, loading, error] = useAuthState(auth);
   const history = useNavigate();
 
+  function assert(condition, message) {
+    if (!condition) {
+        throw message || "Assertion failed";
+    }
+  }
+
   function checkPin()
   {
         if (!newTitle) alert("Please enter a title")
