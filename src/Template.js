@@ -32,7 +32,7 @@ function CreatePinButton() {
   if (user) link = "/createPin";
   if (!user) link = "/login";
   return (
-    <a href=link className="text-light">
+    <a href=""+link className="text-light">
        Create Pin
     </a>
   );
