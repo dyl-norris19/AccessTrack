@@ -27,7 +27,9 @@ export function CreatePin(){
         if (isNaN(latNum)) alert("Please enter a number in latitude")
         if (latNum > 90.0) alert("Latitude must be lower than 90")
         if (latNum < -90.0) alert("Latitude must be higer than -90")
-        
+
+        assert((!newTitle) || (isNaN(longNum)) || (longNum > 180.0) ||
+            (longNum < -180.0) || (isNaN(latNum)) || (latNum > 90.0) || (latNum < -90.0));
         if ((!newTitle) || (isNaN(longNum)) || (longNum > 180.0) ||
             (longNum < -180.0) || (isNaN(latNum)) || (latNum > 90.0) || (latNum < -90.0))
         {
