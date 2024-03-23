@@ -1,5 +1,5 @@
 import {createPin, getCurrentUserId} from "./database.js"
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "./firebase";
@@ -15,7 +15,6 @@ export function CreatePin(){
   const [newText, setText] = useState("");
   const [longNum, setLong] = useState("");
   const [latNum, setLat] = useState("");
-  const [newPin, isPinMade] = useState(0);
   const [user, loading, error] = useAuthState(auth);
   const history = useNavigate();
 
@@ -50,7 +49,7 @@ export function CreatePin(){
         };
         try {
           createPin(pin);
-          isPinMade(1);
+          history("/")
         } catch (error) {
           console.error(error);
         }
@@ -61,10 +60,6 @@ export function CreatePin(){
       history("/createPin");
     }
   }
-  useEffect(() => {
-      if (loading) return;
-      if (newPin == 1) history("/");
-  }, [newPin, loading, history]);
   return(
     <div className="d-flex flex-column min-vh-100">
       <Header headerTitle={"Create a Pin"} />
