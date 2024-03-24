@@ -1,57 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { auth, logInWithEmailAndPassword } from "../firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
-import "./Login.css";
-import { Header, Footer } from "../Template";
+import { Header, Footer } from "./Template";
 
-export function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [user, loading, error] = useAuthState(auth);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (loading) {
-      // maybe trigger a loading screen
-      return;
-    }
-    if (user) navigate("/");
-  }, [user, loading]);
-
+function Map() {
   return (
-    <div className="d-flex flex-column min-vh-100">
-      <Header headerTitle={"Login"} />
-      <div className="login flex-grow-1 d-flex">
-        <div className="login__container">
-          <input
-            type="text"
-            className="login__textBox"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="E-mail Address"
-          />
-          <input
-            type="password"
-            className="login__textBox"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-          />
-          <button
-            className="login__btn"
-            onClick={() => logInWithEmailAndPassword(email, password)}
-          >
-            Login
-          </button>
-          <div>
-            <Link to="/reset">Forgot Password</Link>
-          </div>
-          <div>
-            Don't have an account? <Link to="/register">Register</Link> now.
-          </div>
-        </div>
+    <div
+      className="d-flex flex-column min-vh-100"
+      style={{ backgroundColor: "#444040", color: "#6EE05B" }}
+    >
+      <Header headerTitle={"Map"} />
+      <h1 style={{ marginLeft: "10%", marginTop: "25px" }}>AccessTrack</h1>
+
+      <div
+        style={{ display: "flex", alignItems: "center" }}
+        className="container mt-5"
+      >
+        
+        <p
+          style={{
+            flex: 1,
+            textAlign: "justify",
+            lineHeight: "1.5",
+            width: "33%",
+            marginRight: "200px",
+            color: "#fff",
+          }}
+        >
+          Test
+        </p>
       </div>
-      <Footer />
     </div>
   );
 }
+
+export default Map;
