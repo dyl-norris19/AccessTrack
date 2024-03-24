@@ -60,11 +60,6 @@ export function Header({ headerTitle }) {
       </div> */}
       <Logo />
       <h1>{headerTitle}</h1>
-      <div className="header-links" align="left"> {/*problem*/}
-        <a href="/map" className="text-light">
-          Map
-        </a>
-      </div>
       <div className="header-links">
         <a href="/" className="text-light">
           Home
@@ -74,6 +69,9 @@ export function Header({ headerTitle }) {
         </a>
         <LoginButton />
         <CreatePinButton />
+        <a href="/map" className="text-light">
+          Map
+        </a>
       </div>
     </div>
   );
