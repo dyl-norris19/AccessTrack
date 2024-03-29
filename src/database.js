@@ -11,6 +11,7 @@ import {
   Timestamp,
   addDoc,
   deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { Header } from "./Template";
@@ -133,6 +134,21 @@ async function deleteRating(ratingId) {
   } catch (err) {
     console.error(err);
     alert("An error occurred while deleting the rating.");
+  }
+}
+
+// Function to update a pin object in the "pins" collection
+async function updatePin(pinId, updatedData) {
+  try {
+    // Construct the reference to the pin document
+    const pinRef = doc(db, "pins", pinId);
+
+    // Update the pin with the new data
+    await updateDoc(pinRef, updatedData);
+
+    console.log("Pin updated successfully!");
+  } catch (error) {
+    console.error("Error updating pin: ", error);
   }
 }
 
@@ -289,6 +305,16 @@ function DatabaseStuff() {
     setRatingIdToDelete(event.target.value);
   }
 
+  function updatePinMine() {
+    // Example usage:
+    const pinId = "jrAVZNXVLGopG5H7XNic"; // Replace with the actual ID of the pin document
+    const updatedData = {
+      title: "Updated Pin Title",
+      description: "Updated Pin Description",
+    };
+    updatePin(pinId, updatedData);
+  }
+
   return (
     <div>
       <Header headerTitle={"Database Stuff"} />
@@ -302,6 +328,7 @@ function DatabaseStuff() {
       <button onClick={retrieveRatingsMine}>
         Click me to retrieve ratings
       </button>
+      <button onClick={updatePinMine}>Click me to update a pin</button>
 
       {/* Form for deleting a report */}
       <form onSubmit={handleDeleteReport}>
@@ -357,4 +384,5 @@ export {
   createRating,
   deleteRating,
   getCurrentUserId,
+  updatePin,
 };
