@@ -14,6 +14,8 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { Header, Footer } from "../Template";
+import { uploadImage } from "../storage";
+import { upload } from "@testing-library/user-event/dist/upload";
 
 export function Logout() {
   const [user, loading, error] = useAuthState(auth);
@@ -75,25 +77,31 @@ export function EditProfile() {
       const profileRef = doc(db, "profiles", user.uid);
       const profileDoc = await getDoc(profileRef);
 
+      let dataToUpdate = {}; // Initialize an empty object to hold the data to update
+
+      // Construct the object with non-empty fields
+      if (username !== "") dataToUpdate.username = username;
+      if (name !== "") dataToUpdate.name = name;
+      if (location !== "") dataToUpdate.location = location;
+      if (bio !== "") dataToUpdate.bio = bio;
+
+      // If photo is not null, update imgURL field
+      if (photo) {
+        const imgUrl = await uploadImage(photo);
+        if (imgUrl) {
+          dataToUpdate.imgURL = imgUrl;
+        } else {
+          console.error("Error uploading image: Image URL is null.");
+        }
+      }
+
       if (profileDoc.exists()) {
         // Update the existing profile
-        await updateDoc(profileRef, {
-          username,
-          name,
-          location,
-          bio,
-          // Add other fields as needed
-        });
+        await updateDoc(profileRef, dataToUpdate);
         console.log("Profile updated successfully");
       } else {
         // Create a new profile document
-        await setDoc(profileRef, {
-          username,
-          name,
-          location,
-          bio,
-          // Add other fields as needed
-        });
+        await setDoc(profileRef, dataToUpdate);
         console.log("New profile created successfully");
       }
     } catch (error) {
