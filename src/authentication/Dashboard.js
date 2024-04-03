@@ -67,7 +67,6 @@ export function EditProfile() {
 
   const handlePhotoChange = (event) => {
     const selectedPhoto = event.target.files[0];
-    // handle photo upload logic here
     setPhoto(selectedPhoto);
   };
 
