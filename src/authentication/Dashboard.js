@@ -15,7 +15,6 @@ import {
 } from "firebase/firestore";
 import { Header, Footer } from "../Template";
 import { uploadImage } from "../storage";
-import { upload } from "@testing-library/user-event/dist/upload";
 
 export function Logout() {
   const [user, loading, error] = useAuthState(auth);
@@ -70,11 +69,30 @@ export function EditProfile() {
     setPhoto(selectedPhoto);
   };
 
+  async function getUserDocumentIdByUid(uid) {
+    try {
+      const q = query(collection(db, "users"), where("uid", "==", uid));
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        console.error("User document not found for UID:", uid);
+        return null;
+      }
+
+      // Assuming there's only one user document per UID
+      const userDoc = querySnapshot.docs[0];
+      return userDoc.id;
+    } catch (error) {
+      console.error("Error fetching user document ID:", error);
+      return null;
+    }
+  }
+
   async function handleSaveChanges() {
     try {
-      // Check if the user already has a profile document
-      const profileRef = doc(db, "profiles", user.uid);
-      const profileDoc = await getDoc(profileRef);
+      // Get the profile document for the current user
+      const userDocumentId = await getUserDocumentIdByUid(user.uid);
+      const userRef = doc(db, "users", userDocumentId);
 
       let dataToUpdate = {}; // Initialize an empty object to hold the data to update
 
@@ -94,15 +112,8 @@ export function EditProfile() {
         }
       }
 
-      if (profileDoc.exists()) {
-        // Update the existing profile
-        await updateDoc(profileRef, dataToUpdate);
-        console.log("Profile updated successfully");
-      } else {
-        // Create a new profile document
-        await setDoc(profileRef, dataToUpdate);
-        console.log("New profile created successfully");
-      }
+      await updateDoc(userRef, dataToUpdate);
+      console.log("User profile updated successfully");
     } catch (error) {
       console.error("Error saving profile:", error);
     }
@@ -112,6 +123,7 @@ export function EditProfile() {
     if (loading) return;
     if (!user) return navigate("/");
   }, [user, loading]);
+
   return (
     <div
       className="d-flex flex-column min-vh-100"

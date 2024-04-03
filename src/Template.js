@@ -93,8 +93,6 @@ export function Footer() {
 }
 
 function Template({ headline }) {
-  // can put sub-functions, objects, variables here if desired
-
   return (
     <div
       className="d-flex flex-column min-vh-100"

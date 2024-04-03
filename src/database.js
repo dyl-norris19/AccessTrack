@@ -152,6 +152,33 @@ async function updatePin(pinId, updatedData) {
   }
 }
 
+// returns all ratings for a given pinID
+async function ratingsByPinID(pinID) {
+  const q = query(collection(db, "pinRating"), where("pinID", "==", pinID));
+  const doc = await getDocs(q);
+  return doc;
+}
+
+// returns a boolean for whether the logged in user is an admin
+async function isAdmin() {
+  try {
+    const uid = await getCurrentUserId();
+    const q = query(collection(db, "users"), where("uid", "==", uid));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      // User document doesn't exist, so not an admin
+      return false;
+    }
+
+    const userDoc = querySnapshot.docs[0].data();
+    return !!userDoc.isAdmin; // Return true if isAdmin is true, otherwise false
+  } catch (error) {
+    console.error("Error checking isAdmin:", error);
+    return false;
+  }
+}
+
 /****************************************************************************************************************************************************************************/
 // react component as an example to display all this stuff, and show how to use it
 function DatabaseStuff() {
@@ -315,6 +342,21 @@ function DatabaseStuff() {
     updatePin(pinId, updatedData);
   }
 
+  function ratingsByPinIDMine() {
+    const pinID = "/pins/1234"; // Replace with the actual ID of the pin document
+    ratingsByPinID(pinID).then((doc) => {
+      doc.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+      });
+    });
+  }
+
+  function isAdminMine() {
+    isAdmin().then((isAdmin) => {
+      console.log("Is admin:", isAdmin);
+    });
+  }
+
   return (
     <div>
       <Header headerTitle={"Database Stuff"} />
@@ -329,6 +371,11 @@ function DatabaseStuff() {
         Click me to retrieve ratings
       </button>
       <button onClick={updatePinMine}>Click me to update a pin</button>
+      <button onClick={ratingsByPinIDMine}>
+        {" "}
+        Click me to get ratings by pin ID
+      </button>
+      <button onClick={isAdminMine}>Click me to check if user is admin</button>
 
       {/* Form for deleting a report */}
       <form onSubmit={handleDeleteReport}>
@@ -385,4 +432,6 @@ export {
   deleteRating,
   getCurrentUserId,
   updatePin,
+  ratingsByPinID,
+  isAdmin,
 };
