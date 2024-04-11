@@ -69,7 +69,7 @@ export function Header({ headerTitle }) {
         </a>
         <LoginButton />
         <CreatePinButton />
-        <a href="/map" className="text-light">
+        <a href="/maps" className="text-light">
           Map
         </a>
       </div>
