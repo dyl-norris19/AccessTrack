@@ -4,11 +4,9 @@ import './Maps.css';
 import './CreatePin';
 import { CreatePin } from "./CreatePin.js";
 import { Header, Footer } from "./Template";
-import {Marker, NavigationControl} from 'react-map-gl'; //not used yet/even necessary ?
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaGFsZXluZiIsImEiOiJjbHN5c3hzeTcwZ2pwMmltdXUzdHprYWlsIn0._n2hM1vDIHvaBV8fTORxIw";
-
 
 const Map = () => {
   const mapContainerRef = useRef(null);
@@ -16,8 +14,7 @@ const Map = () => {
   const [lng, setLng] = useState(-97.14);
   const [lat, setLat] = useState(33.21);
   const [zoom, setZoom] = useState(14);
-  let dbl = false;
-
+  let click = false;
 
   // Initialize map when component mounts
   useEffect(() => {
@@ -28,48 +25,49 @@ const Map = () => {
       zoom: zoom
     });
 
-    map.dragRotate.disable(); //disable right click rotation - dont currently have a method to reset it
+    //disable right click rotation - dont currently have a method to reset it
+    map.dragRotate.disable(); 
 
     // Add navigation control (the +/- zoom buttons)
     map.addControl(new mapboxgl.NavigationControl(), "top-right");
 
-    //center the map on the coordinates of user click -  ORIGINAL
+    //main click handler
     map.on('click', (e) => {
+      click=false; //reset click to false
+            
+      //set new coords for pin creation
+      setLng(map.getCenter().lng.toFixed(4));
+      setLat(map.getCenter().lat.toFixed(4));
+      setZoom(map.getZoom().toFixed(2));
 
-            //set new coords for pin creation
-            setLng(map.getCenter().lng.toFixed(4));
-            setLat(map.getCenter().lat.toFixed(4));
-            setZoom(map.getZoom().toFixed(2));
-
-      new mapboxgl.Popup()
-          .setLngLat(e.lngLat)
-          .setHTML("Create Pin?", pins())
-          .addTo(map);
-  
-
+      //center the map on the coordinates of user click
       map.flyTo({
-          center: e.lngLat
-      });
+        center: e.lngLat
+    });
       
+      // create DOM element for the marker
+      const el = document.createElement('div');
+      el.id = 'marker';
 
-      //popup - ORIGINAL
-      //this one doesnt create multiple popups
-      {/*}
-      dbl = false;
-      setTimeout(() => {
-        if(!dbl){
-          new mapboxgl.Marker()
+      //create marker 
+      new mapboxgl.Marker(el)
           .setLngLat(e.lngLat)
-      //    .setHTML(pins())
-        //  .setPopup(popup)
           .addTo(map);
-         
-        }
-      })*/}
-
+      
+      //after user sets a marker, set to true to prep for pin menu
+      click=true;
 
   }); //on click ending brackets
 
+  //second click handler, leads to pin creation menu
+  map.on('mouseover', (e) => {
+    if(click=true){ //needs user to create marker before accessing pin menu
+      map.on('contextmenu', function (e) {
+        pins(); //function that opens the window to pin creation
+    });
+    }
+
+  })
 
     // Clean up on unmount
     return () => map.remove();
@@ -80,11 +78,12 @@ const Map = () => {
         document.getElementById("myDropdown").classList.toggle("show");
     }
 
+    //function that opens pin creation menu
     function pins(){
       window.open('/createPin', 'noopener');
     }
 
-
+    
   return( 
     
     <div
