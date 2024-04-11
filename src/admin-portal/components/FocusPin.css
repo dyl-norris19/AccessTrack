@@ -1,0 +1,182 @@
+.pin-in-focus {
+    display: flex;
+    background-color: #D9D9D9;
+    margin-left: 65px;
+    margin-block: 45px;
+    padding-left: 25px;
+    padding-top: 20px;
+    border-radius: 30px;
+    width: 1030px;
+}
+
+.image-and-tag {
+    padding-right: 10px;
+    width: 260px;
+}
+
+.pin-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+    background-color: white;
+    border-radius: 50%;
+    width: 250px;
+    height: 250px;
+}
+
+.pin-image > img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+    background-color: white;
+    border-radius: 50%;
+    width: 250px;
+    height: 250px;
+}
+
+.tags > h3 {
+    color: #6F6F6F;
+}
+
+.info-side {
+    margin-left: 5px;
+}
+
+.title {
+    margin: 0px;
+    height: 64px;
+    font-size: 64px;
+    font-weight: 400;
+}
+
+.info-side > p {
+    color: #6F6F6F;
+    margin-bottom: 10px;
+    font-weight: 600;
+    padding-left: 10px;
+}
+
+.location-and-rating {
+    margin-block: 0px;
+    font-size: 45px;
+    font-weight: 400;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.rating > img {
+    margin-left: 5px;
+    width: 45px;
+    height: 45px;
+}
+
+.description {
+    padding-block: 10px;
+    padding-inline: 15px;
+    background-color: white;
+    border-radius: 30px;
+    width: 630px;
+    height: 300px;
+}
+
+.description > h1 {
+    font-size: 30px;
+    font-weight: 400;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 75px;
+}
+
+.button-container > button {
+    margin-inline: 50px;
+}
+
+.remove-button {
+    background-color: red;
+    border-color: black;
+    border-radius: 20px;
+    border-width: 5px;
+    width: 150px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.edit-button {
+    background-color: #00FF00;
+    border-color: black;
+    border-radius: 20px;
+    border-width: 5px;
+    width: 150px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.confirm-window {
+    display: flex;
+    visibility: hidden;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 75px;
+    background-color: #929292;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 30px;
+    width: 800px;
+    height: 300px;
+}
+
+.confirm-window-show {
+    visibility: visible;
+}
+
+.cancel-confirm {
+    visibility: hidden;
+}
+
+.confirm-window > h1 {
+    font-size: 36px;
+    font-weight: 600;
+}
+
+.yes-or-no {
+    display: flex;
+    gap: 121px;
+}
+
+.cancel-button {
+    background-color: transparent;
+    border: 0;
+    text-decoration: underline;
+    font-size: 27px;
+    font-weight: 600;
+}
+
+.confirm-remove-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+    border-color: black;
+    transform: translate(0px, -3px);
+    border-radius: 20px;
+    border-width: 5px;
+    width: 150px;
+    height: 50px;
+    font-size: 26px;
+    font-weight: 600;
+}

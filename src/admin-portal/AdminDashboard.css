@@ -1,0 +1,16 @@
+body {
+    background-color: #1E1E1E;
+    /* filter: blur(5px); */
+}
+
+.blur {
+    filter: blur(5px);
+}
+
+.pin-list-container {
+    margin-block: 45px;
+    margin-left: 50px;
+    width: 525px;
+    max-height: 622px;
+    overflow-y: auto;
+}
