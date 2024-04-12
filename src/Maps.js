@@ -6,6 +6,7 @@ import { CreatePin } from "./CreatePin.js";
 import { Header, Footer } from "./Template";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
+import { retrievePins } from "./database.js";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaGFsZXluZiIsImEiOiJjbHN5c3hzeTcwZ2pwMmltdXUzdHprYWlsIn0._n2hM1vDIHvaBV8fTORxIw";
@@ -61,8 +62,9 @@ const Map = () => {
       const el = document.createElement("div");
       el.id = "marker";
 
-      //create marker
-      new mapboxgl.Marker(el).setLngLat(e.lngLat).addTo(map);
+      // currently commented out to avoid interference with the pins being rendered from the database
+      // //create marker
+      // new mapboxgl.Marker(el).setLngLat(e.lngLat).addTo(map);
 
       //after user sets a marker, set to true to prep for pin menu
       click = true;
@@ -77,6 +79,9 @@ const Map = () => {
     //     });
     //   }
     // });
+
+    // renders all pins from the database
+    retrievePinsForMap(map);
 
     // Clean up on unmount
     return () => map.remove();
@@ -108,7 +113,7 @@ const Map = () => {
         Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
       </div>
       <div className="map-container" ref={mapContainerRef} /> {/*MAP DIV*/}
-      <div class="dropdown">
+      <div className="dropdown">
         {" "}
         {/*PIN BUTTON MENU DIV*/}
         <button className="dropbtn" onClick={dropDown}>
@@ -123,38 +128,38 @@ const Map = () => {
             className="dropdown-group"
             value="View All Pins"
           />
-          <label class="dropdown-option">View All Pins</label>
+          <label className="dropdown-option">View All Pins</label>
           <br />
           <input
             type="checkbox"
             className="dropdown-group"
             value="View Pins Near Me"
           />
-          <label class="dropdown-option">View Pins Near Me</label>
+          <label className="dropdown-option">View Pins Near Me</label>
           <br />
           <input
             type="checkbox"
             className="dropdown-group"
             value="Wheelchair Ramps"
           />
-          <label class="dropdown-option">Wheelchair Ramps</label>
+          <label className="dropdown-option">Wheelchair Ramps</label>
           <br />
           <input
             type="checkbox"
             className="dropdown-group"
             value="Crosswalks"
           />
-          <label class="dropdown-option">Crosswalks</label>
+          <label className="dropdown-option">Crosswalks</label>
           <br />
           <input type="checkbox" className="dropdown-group" value="Elevators" />
-          <label class="dropdown-option">Elevators</label>
+          <label className="dropdown-option">Elevators</label>
           <br />
           <input
             type="checkbox"
             className="dropdown-group"
             value="Dropped Curbs"
           />
-          <label class="dropdown-option">Dropped Curbs</label>
+          <label className="dropdown-option">Dropped Curbs</label>
         </div>{" "}
         {/*PIN DROPDOWN MENU DIV*/}
       </div>{" "}
@@ -204,18 +209,6 @@ const Map = () => {
               Create Pin
             </button>
             <button
-              onClick={() => console.log("Rate Pin clicked")}
-              style={{ display: "block", marginBottom: "10px" }}
-            >
-              Rate Pin
-            </button>
-            <button
-              onClick={() => console.log("Report Pin clicked")}
-              style={{ display: "block", marginBottom: "10px" }}
-            >
-              Report Pin
-            </button>
-            <button
               onClick={handleClosePopup}
               style={{ display: "block", marginBottom: "10px" }}
             >
@@ -227,5 +220,47 @@ const Map = () => {
     </div> /*MAIN DIV*/
   );
 };
+
+async function retrievePinsForMap(map) {
+  try {
+    const doc = await retrievePins();
+    doc.forEach((doc) => {
+      const pin = doc.data();
+      const el = document.createElement("div");
+
+      const latitude = pin.location.latitude;
+      const longitude = pin.location.longitude;
+
+      el.id = "marker";
+
+      //create marker
+      new mapboxgl.Marker(el)
+        .setLngLat([longitude, latitude])
+        .setPopup(
+          new mapboxgl.Popup().setHTML(
+            `<div style="font-family: Arial, sans-serif;">
+            <h3 style="margin-bottom: 10px; font-size: 18px; color: #333;">${pin.title}</h3>
+            <p style="margin-bottom: 10px; font-size: 14px; color: #666;">${pin.description}</p>
+            <button
+              onclick="console.log('Rate Pin clicked')"
+              style="display: block; margin-bottom: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"
+            >
+              Rate Pin
+            </button>
+            <button
+              onclick="console.log('Report Pin clicked')"
+              style="display: block; margin-bottom: 10px; background-color: #dc3545; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"
+            >
+              Report Pin
+            </button>
+          </div>`
+          )
+        )
+        .addTo(map);
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 export default Map;
