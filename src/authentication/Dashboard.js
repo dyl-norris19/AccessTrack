@@ -112,7 +112,6 @@ export function EditProfile() {
     >
       <Header headerTitle={"Edit Profile"} />
       <div className="container mt-5">
-        <h2>Edit Profile</h2>
         <div className="row mb-3">
           <div className="col">
             <label htmlFor="username" className="form-label">

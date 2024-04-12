@@ -221,6 +221,7 @@ const Map = () => {
   );
 };
 
+// grabs the pins from the db and renders them
 async function retrievePinsForMap(map) {
   try {
     const doc = await retrievePins();
@@ -248,7 +249,7 @@ async function retrievePinsForMap(map) {
               Rate Pin
             </button>
             <button
-              onclick="console.log('Report Pin clicked')"
+            onclick="window.location.href = '/reportPin/' + '${doc.id}'"
               style="display: block; margin-bottom: 10px; background-color: #dc3545; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"
             >
               Report Pin

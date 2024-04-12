@@ -1,0 +1,60 @@
+/* Main container styling */
+.container {
+    background-color: #333; /* Dark background color */
+    color: white; /* Text color */
+    padding: 20px; /* Padding */
+    border-radius: 10px; /* Rounded corners */
+  }
+
+
+  /* Form styling */
+  form {
+    display: flex; /* Use flexbox for form layout */
+    flex-direction: column; /* Arrange form elements vertically */
+  }
+  
+  /* Label styling */
+  label {
+    margin-bottom: 10px; /* Spacing below each label */
+  }
+  
+  /* Input styling */
+  input {
+    padding: 10px; /* Padding */
+    margin-bottom: 20px; /* Spacing below each input */
+    border-radius: 5px; /* Rounded corners */
+    border: 1px solid #666; /* Border color */
+
+    padding: 10px;
+    font-size: 18px;
+  }
+  
+  /* Button styling */
+  button {
+    padding: 10px 20px; /* Padding */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #007bff; /* Blue background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  
+  /* Button hover effect */
+  button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+
+  .register {
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #444040;
+  }
+  .register__container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: #dcdcdc;
+    padding: 30px;
+  }
