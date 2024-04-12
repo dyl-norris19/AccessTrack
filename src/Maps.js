@@ -14,7 +14,7 @@ const Map = () => {
   const [lng, setLng] = useState(-97.14);
   const [lat, setLat] = useState(33.21);
   const [zoom, setZoom] = useState(14);
-  let click = false;
+  let click = false; //variable for right click handling
 
   // Initialize map when component mounts
   useEffect(() => {
@@ -34,16 +34,16 @@ const Map = () => {
     //main click handler
     map.on('click', (e) => {
       click=false; //reset click to false
-            
-      //set new coords for pin creation
-      setLng(map.getCenter().lng.toFixed(4));
-      setLat(map.getCenter().lat.toFixed(4));
-      setZoom(map.getZoom().toFixed(2));
 
       //center the map on the coordinates of user click
       map.flyTo({
         center: e.lngLat
-    });
+      });
+
+      //set new coords for pin creation
+      setLng(map.getCenter().lng.toFixed(4));
+      setLat(map.getCenter().lat.toFixed(4));
+      setZoom(map.getZoom().toFixed(2));
       
       // create DOM element for the marker
       const el = document.createElement('div');
