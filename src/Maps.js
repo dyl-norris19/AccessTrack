@@ -111,7 +111,7 @@ const Map = () => {
 
   const replacePopup = () => {
     setShowPopup(false);
-    pins();
+    Pins();
   }
 
   function submitPin(){
@@ -134,7 +134,7 @@ const Map = () => {
   }
   
   //function that opens pin creation menu
-  function pins() {
+  function Pins() {
     return(
     <div
     className="d-flex flex-column min-vh-100"
@@ -304,12 +304,7 @@ const Map = () => {
           arrow={false}
         >
           <div>
-            <button
-              onClick={replacePopup}
-              style={{ display: "block", marginBottom: "10px" }}
-            >
-              Create Pin
-            </button>
+            <Pins>
             <button
               onClick={handleClosePopup}
               style={{ display: "block", marginBottom: "10px" }}
