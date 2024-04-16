@@ -137,6 +137,7 @@ async function deleteRating(ratingId) {
   }
 }
 
+
 // Function to update a pin object in the "pins" collection
 async function updatePin(pinId, updatedData) {
   try {
@@ -178,6 +179,7 @@ async function isAdmin() {
     return false;
   }
 }
+
 
 /****************************************************************************************************************************************************************************/
 // react component as an example to display all this stuff, and show how to use it
@@ -332,6 +334,7 @@ function DatabaseStuff() {
     setRatingIdToDelete(event.target.value);
   }
 
+
   function updatePinMine() {
     // Example usage:
     const pinId = "jrAVZNXVLGopG5H7XNic"; // Replace with the actual ID of the pin document
@@ -357,6 +360,7 @@ function DatabaseStuff() {
     });
   }
 
+
   return (
     <div>
       <Header headerTitle={"Database Stuff"} />
@@ -370,12 +374,14 @@ function DatabaseStuff() {
       <button onClick={retrieveRatingsMine}>
         Click me to retrieve ratings
       </button>
+
       <button onClick={updatePinMine}>Click me to update a pin</button>
       <button onClick={ratingsByPinIDMine}>
         {" "}
         Click me to get ratings by pin ID
       </button>
       <button onClick={isAdminMine}>Click me to check if user is admin</button>
+
 
       {/* Form for deleting a report */}
       <form onSubmit={handleDeleteReport}>
