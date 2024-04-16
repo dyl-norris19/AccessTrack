@@ -6,7 +6,7 @@ import { CreatePin } from "./CreatePin.js";
 import { Header, Footer } from "./Template";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import { retrievePins } from "./database.js";
+import { retrievePins, averageRatingByPinID } from "./database.js";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaGFsZXluZiIsImEiOiJjbHN5c3hzeTcwZ2pwMmltdXUzdHprYWlsIn0._n2hM1vDIHvaBV8fTORxIw";
@@ -221,18 +221,38 @@ const Map = () => {
   );
 };
 
+// // function to retrieve ratings for pins
+// async function averageRatingByPinIDMine(pinID) {
+//   try {
+//     const [quality, accuracy] = await averageRatingByPinID(pinID);
+//     console.log(quality, accuracy);
+//     return [quality, accuracy];
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
 // grabs the pins from the db and renders them
 async function retrievePinsForMap(map) {
   try {
-    const doc = await retrievePins();
-    doc.forEach((doc) => {
+    let doc = await retrievePins();
+    doc.forEach(async (doc) => {
       const pin = doc.data();
+      const [accuracy, quality] = await averageRatingByPinID(doc.id);
+      const accuracyDisplay = isNaN(accuracy)
+        ? "There are no ratings for this pin yet. Be the First!"
+        : accuracy.toFixed(2);
+      const qualityDisplay = isNaN(quality)
+        ? "There are no ratings for this pin yet. Be the First!"
+        : quality.toFixed(2);
+
       const el = document.createElement("div");
+      el.id = "marker";
 
       const latitude = pin.location.latitude;
       const longitude = pin.location.longitude;
 
-      el.id = "marker";
+      console.log(map);
 
       //create marker
       new mapboxgl.Marker(el)
@@ -243,17 +263,23 @@ async function retrievePinsForMap(map) {
             <h3 style="margin-bottom: 10px; font-size: 18px; color: #333;">${pin.title}</h3>
             <p style="margin-bottom: 10px; font-size: 14px; color: #666;">${pin.description}</p>
             <button
-            onclick="window.location.href = '/ratePin/' + '${doc.id}'"
-              style="display: block; margin-bottom: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"
-            >
-              Rate Pin
+              onclick="window.location.href = '/ratePin/' + '${doc.id}'"
+                style="display: block; margin-bottom: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"
+              >
+                Rate Pin
             </button>
             <button
-            onclick="window.location.href = '/reportPin/' + '${doc.id}'"
-              style="display: block; margin-bottom: 10px; background-color: #dc3545; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"
-            >
-              Report Pin
+              onclick="window.location.href = '/reportPin/' + '${doc.id}'"
+                style="display: block; margin-bottom: 10px; background-color: #dc3545; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"
+              >
+                Report Pin
             </button>
+            <div style="margin-top: 10px;">
+            <strong>Average Accuracy Rating:</strong> ${accuracyDisplay}
+            <br>
+            <strong>Average Quality Rating:</strong> ${qualityDisplay}
+          </div>
+
           </div>`
           )
         )
