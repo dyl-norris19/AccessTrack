@@ -35,7 +35,6 @@ const db = getFirestore(app);
 const analytics = getAnalytics(app);
 const storage = getStorage(app);
 const imagesRef = ref(storage, "images"); // a reference to the images folder in the storage bucket
-
 const logInWithEmailAndPassword = async (email, password) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
