@@ -136,8 +136,7 @@ const Map = () => {
   //function that opens pin creation menu
   function Pins() {
     return(
-    <div className="d-flex flex-column min-vh-100">
-      {" "}
+    <div>
       <div>
           <div>
             <input
