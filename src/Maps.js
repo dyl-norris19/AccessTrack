@@ -127,6 +127,12 @@ const Map = () => {
   //function that opens pin creation menu
   function pins() {
     return(
+    <div
+    className="d-flex flex-column min-vh-100"
+    style={{ backgroundColor: "#444040", color: "#6EE05B" }}
+    onContextMenu={handleContextMenu}
+    >
+      {" "}
       <div>
         <Popup
           open={showPopup}
