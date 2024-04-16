@@ -138,7 +138,7 @@ const Map = () => {
     return(
     <div>
       <div>
-          <div>
+          <div className="register  flex-grow-1 d-flex">
             <input
             type="text"
             className="create__textBox"
