@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "./Maps.css";
 import "./CreatePin";
+import { uploadImage } from "./storage.js";
 import { CreatePin } from "./CreatePin.js";
 import { Header, Footer } from "./Template";
 import Popup from "reactjs-popup";
@@ -117,7 +118,7 @@ const Map = () => {
         title: newTitle,
         description: newText,
         location: new GeoPoint(lat, lng),
-        Photo: photo,
+        Photo: uploadImage(photo),
         timestamp: Timestamp.now(),
         creator: uid,
       };
