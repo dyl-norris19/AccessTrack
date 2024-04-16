@@ -303,7 +303,6 @@ const Map = () => {
               Cancel
             </button>
           </div>
-        </Popup>
       </div>
     </div> /*MAIN DIV*/
   );
