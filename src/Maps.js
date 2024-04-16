@@ -134,7 +134,7 @@ const Map = () => {
   function Pins() {
     return (
       <div
-        className="d-flex flex-column"
+        className="d-flex flex-column min-vh-100"
         style={{ backgroundColor: "#444040", color: "#6EE05B" }}
         onContextMenu={handleContextMenu}
       >
