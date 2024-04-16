@@ -304,7 +304,11 @@ const Map = () => {
           arrow={false}
         >
           <div>
-            <Pins>
+            <Pins
+              style={{ display: "block", marginBottom: "10px" }}
+            >
+              Create Pin
+            </Pins>
             <button
               onClick={handleClosePopup}
               style={{ display: "block", marginBottom: "10px" }}
