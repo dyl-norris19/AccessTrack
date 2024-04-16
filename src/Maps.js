@@ -109,7 +109,7 @@ const Map = () => {
     document.getElementById("myDropdown").classList.toggle("show");
   }
 
-  function replacePopup = () => {
+  const replacePopup = () => {
     pinChange={() => pins()}
     onClose={handleClosePopup}
   }
