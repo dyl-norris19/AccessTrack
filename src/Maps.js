@@ -125,7 +125,8 @@ const Map = () => {
   
   //function that opens pin creation menu
   function pins() {
-    <div>
+    return(
+      <div>
         <Popup
           open={showPopup}
           closeOnDocumentClick
@@ -178,7 +179,8 @@ const Map = () => {
           </div>
         </Popup>
       </div>
-    </div> 
+    </div>
+    ); 
   }
 
   return (
