@@ -181,7 +181,6 @@ const Map = () => {
             Submit Pin
           </button>
           </div>
-        </Popup>
       </div>
     </div>
     ); 
