@@ -112,13 +112,13 @@ const Map = () => {
     Pins();
   };
 
-  function submitPin() {
+  async function submitPin() {
     getCurrentUserId().then((uid) => {
       const pin = {
         title: newTitle,
         description: newText,
         location: new GeoPoint(lat, lng),
-        Photo: uploadImage(photo),
+        Photo: await uploadImage(photo),
         timestamp: Timestamp.now(),
         creator: uid,
       };
