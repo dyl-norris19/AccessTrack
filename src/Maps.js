@@ -109,6 +109,11 @@ const Map = () => {
     document.getElementById("myDropdown").classList.toggle("show");
   }
 
+  function replacePopup = () => {
+    pinChange={() => pins()}
+    onClose={handleClosePopup}
+  }
+
   function submitPin(){
       getCurrentUserId().then((uid) => {
         const pin = {
@@ -300,7 +305,7 @@ const Map = () => {
         >
           <div>
             <button
-              onClick={() => pins()}
+              onClick={replacePopup}
               style={{ display: "block", marginBottom: "10px" }}
             >
               Create Pin
