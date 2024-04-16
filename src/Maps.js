@@ -243,7 +243,7 @@ async function retrievePinsForMap(map) {
             <h3 style="margin-bottom: 10px; font-size: 18px; color: #333;">${pin.title}</h3>
             <p style="margin-bottom: 10px; font-size: 14px; color: #666;">${pin.description}</p>
             <button
-              onclick="console.log('Rate Pin clicked')"
+            onclick="window.location.href = '/ratePin/' + '${doc.id}'"
               style="display: block; margin-bottom: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"
             >
               Rate Pin
