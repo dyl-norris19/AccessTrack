@@ -110,8 +110,8 @@ const Map = () => {
   }
 
   const replacePopup = () => {
-    pinChange={() => pins()}
     onClose={handleClosePopup}
+    pins();
   }
 
   function submitPin(){
