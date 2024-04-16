@@ -138,7 +138,7 @@ const Map = () => {
     return(
     <div>
       <div>
-          <div className="register  flex-grow-1 d-flex">
+          <div>
             <input
             type="text"
             className="create__textBox"
@@ -286,11 +286,48 @@ const Map = () => {
           arrow={false}
         >
           <div>
-            <Pins
-              style={{ display: "block", marginBottom: "10px" }}
-            >
-              Create Pin
-            </Pins>
+            <div>
+              <div>
+                <div>
+                  <input
+                    type="text"
+                    className="create__textBox"
+                    value={newTitle}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Pin Title"
+                  />
+                  <input
+                    type="text"
+                    className="create__textBox"
+                    value={newText}
+                    onChange={(e) => setText(e.target.value)}
+                    placeholder="Description"
+                  />
+                  <label htmlFor="photo" className="form-label">
+                    Photo:
+                  </label>
+                  <input
+                    type="file"
+                    className="form-control"
+                    id="photo"
+                    accept="image/*"
+                    onChange={handlePhotoChange}
+                    style={{ backgroundColor: "#565656", color: "#fff" }}
+                  />
+                  {photo && (
+                    <img
+                      src={URL.createObjectURL(photo)}
+                      alt="Selected"
+                      className="mt-2 img-thumbnail"
+                      style={{ maxWidth: "100px" }}
+                    />
+                  )}
+                  <button className="dropbtn" onClick={submitPin}>
+                  Submit Pin
+                 </button>
+                </div>
+              </div>
+            </div>
             <button
               onClick={handleClosePopup}
               style={{ display: "block", marginBottom: "10px" }}
