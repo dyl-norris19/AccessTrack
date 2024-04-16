@@ -143,29 +143,17 @@ const Map = () => {
     >
       {" "}
       <div>
-        <Popup
-          open={showPopup}
-          closeOnDocumentClick
-          onClose={handleClosePopup}
-          contentStyle={{
-            background: "white",
-            border: "1px solid #ccc",
-            padding: "20px",
-            borderRadius: "8px",
-          }}
-          arrow={false}
-        >
           <div>
             <input
             type="text"
-            className="textbox"
+            className="create__textBox"
             value={newTitle}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Pin Title"
           />
           <input
             type="text"
-            className="textbox"
+            className="create__textBox"
             value={newText}
             onChange={(e) => setText(e.target.value)}
             placeholder="Description"
