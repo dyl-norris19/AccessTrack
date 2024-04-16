@@ -113,12 +113,13 @@ const Map = () => {
   };
 
   async function submitPin() {
+    const photoID = await uploadImage(photo);
     getCurrentUserId().then((uid) => {
       const pin = {
         title: newTitle,
         description: newText,
         location: new GeoPoint(lat, lng),
-        Photo: await uploadImage(photo),
+        Photo: photoID,
         timestamp: Timestamp.now(),
         creator: uid,
       };
