@@ -121,6 +121,7 @@ const Map = () => {
         } catch (error) {
           console.error(error);
         }
+    }
   }
   
   //function that opens pin creation menu
