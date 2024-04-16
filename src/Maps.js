@@ -297,7 +297,7 @@ const Map = () => {
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="Pin Title"
                 />
-                <textarea
+                <input
                   type="text"
                   className="create__textBox"
                   value={newText}
