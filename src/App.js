@@ -22,7 +22,6 @@ function App() {
         <Route exact path="/database" element={<DatabaseStuff />} />
         <Route exact path="/dashboard" element={<EditProfile />} />
         <Route exact path="/createPin" element={<CreatePin />} />
-        <Route exact path="/maps" element={<Maps />} />
         <Route exact path="/reportPin/:pinID" element={<ReportPin />} />
       </Routes>
     </BrowserRouter>

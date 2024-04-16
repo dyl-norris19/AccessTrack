@@ -24,7 +24,7 @@ function LoginButton() {
 
 function CreatePinButton() {
   const [user, loading, error] = useAuthState(auth);
-  
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -37,7 +37,7 @@ function CreatePinButton() {
   }
   return (
     <a href="/login" className="text-light">
-       Create Pin
+      Create Pin
     </a>
   );
 }
@@ -69,9 +69,6 @@ export function Header({ headerTitle }) {
         </a>
         <LoginButton />
         <CreatePinButton />
-        <a href="/maps" className="text-light">
-          Map
-        </a>
       </div>
     </div>
   );

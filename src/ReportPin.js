@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { createReport, getCurrentUserId } from "./database";
 import { useParams } from "react-router-dom";
 import { Header, Footer } from "./Template";
-import "./CreatePin.css";
+import "./ReportPin.css";
+import { Link } from "react-router-dom";
 
 function ReportPin() {
   const { pinID } = useParams();
@@ -49,16 +50,12 @@ function ReportPin() {
             onChange={(e) => setText(e.target.value)}
             placeholder="Report Description"
           />
-          {/* <textarea
-            className="form-control"
-            id="bio"
-            value={bio}
-            onChange={(e) => setBio(e.target.value)}
-            style={{ backgroundColor: "#565656", color: "#fff" }}
-          /> */}
           <button className="create__btn" onClick={createReportMine}>
             Submit Report
           </button>
+          <div>
+            <Link to="/">Cancel Report</Link>
+          </div>
         </div>
       </div>
       <Footer />

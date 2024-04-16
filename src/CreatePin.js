@@ -1,16 +1,13 @@
-import {createPin, getCurrentUserId} from "./database.js"
+import { createPin, getCurrentUserId } from "./database.js";
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "./firebase";
 import "./CreatePin.css";
 import { Header, Footer } from "./Template";
-import {
-  GeoPoint,
-  Timestamp,
-} from "firebase/firestore";
+import { GeoPoint, Timestamp } from "firebase/firestore";
 
-export function CreatePin(){
+export function CreatePin() {
   const [newTitle, setTitle] = useState("");
   const [newText, setText] = useState("");
   const [longNum, setLong] = useState("");
@@ -20,33 +17,44 @@ export function CreatePin(){
 
   function assert(condition, message) {
     if (!condition) {
-        throw message || "Assertion failed";
+      throw message || "Assertion failed";
     }
   }
 
-  function checkPin()
-  {
-        if (!newTitle) alert("Please enter a title")
-        if (isNaN(longNum)) alert("Please enter a number in longitude")
-        if (longNum > 180.0) alert("Longitude must be lower than 180")
-        if (longNum < -180.0) alert("Longitude must be higer than -180")
-        if (isNaN(latNum)) alert("Please enter a number in latitude")
-        if (latNum > 90.0) alert("Latitude must be lower than 90")
-        if (latNum < -90.0) alert("Latitude must be higer than -90")
+  function checkPin() {
+    if (!newTitle) alert("Please enter a title");
+    if (isNaN(longNum)) alert("Please enter a number in longitude");
+    if (longNum > 180.0) alert("Longitude must be lower than 180");
+    if (longNum < -180.0) alert("Longitude must be higer than -180");
+    if (isNaN(latNum)) alert("Please enter a number in latitude");
+    if (latNum > 90.0) alert("Latitude must be lower than 90");
+    if (latNum < -90.0) alert("Latitude must be higer than -90");
 
-        if ((!newTitle) || (isNaN(longNum)) || (longNum > 180.0) ||
-            (longNum < -180.0) || (isNaN(latNum)) || (latNum > 90.0) || (latNum < -90.0))
-        {
-           return 1;
-        }
-        assert((newTitle) || !(isNaN(longNum)) || !(longNum > 180.0) ||
-            !(longNum < -180.0) || !(isNaN(latNum)) || !(latNum > 90.0) || !(latNum < -90.0));
-        return 0;
+    if (
+      !newTitle ||
+      isNaN(longNum) ||
+      longNum > 180.0 ||
+      longNum < -180.0 ||
+      isNaN(latNum) ||
+      latNum > 90.0 ||
+      latNum < -90.0
+    ) {
+      return 1;
+    }
+    assert(
+      newTitle ||
+        !isNaN(longNum) ||
+        !(longNum > 180.0) ||
+        !(longNum < -180.0) ||
+        !isNaN(latNum) ||
+        !(latNum > 90.0) ||
+        !(latNum < -90.0)
+    );
+    return 0;
   }
-  
+
   const createPin2 = () => {
-    if(checkPin() == 0)
-    {
+    if (checkPin() == 0) {
       getCurrentUserId().then((uid) => {
         const pin = {
           title: newTitle,
@@ -57,18 +65,16 @@ export function CreatePin(){
         };
         try {
           createPin(pin);
-          history("/")
+          history("/");
         } catch (error) {
           console.error(error);
         }
       });
-    }
-    else
-    {
+    } else {
       history("/createPin");
     }
-  }
-  return(
+  };
+  return (
     <div className="d-flex flex-column min-vh-100">
       <Header headerTitle={"Create a Pin"} />
       <div className="register  flex-grow-1 d-flex">
@@ -105,7 +111,7 @@ export function CreatePin(){
             Create Pin
           </button>
           <div>
-            <Link to="/dashboard">Cancel Pin</Link>
+            <Link to="/">Cancel Pin</Link>
           </div>
         </div>
       </div>
