@@ -16,6 +16,7 @@ import {
   where,
   addDoc,
 } from "firebase/firestore";
+import { getStorage, ref } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB1ZAIOoBf8RwBS8loKKr5D0DBaW9gCdi0",
@@ -32,7 +33,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const analytics = getAnalytics(app);
-
+const storage = getStorage(app);
+const imagesRef = ref(storage, "images"); // a reference to the images folder in the storage bucket
 const logInWithEmailAndPassword = async (email, password) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
@@ -75,6 +77,7 @@ const logout = () => {
 export {
   auth,
   db,
+  imagesRef,
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
   sendPasswordReset,
