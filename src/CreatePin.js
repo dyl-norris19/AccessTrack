@@ -1,13 +1,18 @@
-import { createPin, getCurrentUserId } from "./database.js";
+import {createPin, getCurrentUserId} from "./database.js"
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "./firebase";
 import "./CreatePin.css";
 import { Header, Footer } from "./Template";
-import { GeoPoint, Timestamp } from "firebase/firestore";
 
-export function CreatePin() {
+import {
+  GeoPoint,
+  Timestamp,
+} from "firebase/firestore";
+
+export function CreatePin(){
+
   const [newTitle, setTitle] = useState("");
   const [newText, setText] = useState("");
   const [longNum, setLong] = useState("");
@@ -17,6 +22,7 @@ export function CreatePin() {
 
   function assert(condition, message) {
     if (!condition) {
+
       throw message || "Assertion failed";
     }
   }
@@ -55,6 +61,7 @@ export function CreatePin() {
 
   const createPin2 = () => {
     if (checkPin() == 0) {
+
       getCurrentUserId().then((uid) => {
         const pin = {
           title: newTitle,
@@ -65,7 +72,9 @@ export function CreatePin() {
         };
         try {
           createPin(pin);
+
           history("/");
+
         } catch (error) {
           console.error(error);
         }
@@ -75,6 +84,7 @@ export function CreatePin() {
     }
   };
   return (
+
     <div className="d-flex flex-column min-vh-100">
       <Header headerTitle={"Create a Pin"} />
       <div className="register  flex-grow-1 d-flex">

@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+#figuring stuff out
+/src/admin-portal/components/PinList.js
+/src/admin-portal/components/PinList.css

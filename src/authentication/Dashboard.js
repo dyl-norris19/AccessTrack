@@ -14,6 +14,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { Header, Footer } from "../Template";
+import { uploadImage } from "../storage";
 
 export function Logout() {
   const [user, loading, error] = useAuthState(auth);
@@ -65,37 +66,56 @@ export function EditProfile() {
 
   const handlePhotoChange = (event) => {
     const selectedPhoto = event.target.files[0];
-    // handle photo upload logic here
+
     setPhoto(selectedPhoto);
   };
 
+  async function getUserDocumentIdByUid(uid) {
+    try {
+      const q = query(collection(db, "users"), where("uid", "==", uid));
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        console.error("User document not found for UID:", uid);
+        return null;
+      }
+
+      // Assuming there's only one user document per UID
+      const userDoc = querySnapshot.docs[0];
+      return userDoc.id;
+    } catch (error) {
+      console.error("Error fetching user document ID:", error);
+      return null;
+    }
+  }
+
   async function handleSaveChanges() {
     try {
-      // Check if the user already has a profile document
-      const profileRef = doc(db, "profiles", user.uid);
-      const profileDoc = await getDoc(profileRef);
+      // Get the profile document for the current user
+      const userDocumentId = await getUserDocumentIdByUid(user.uid);
+      const userRef = doc(db, "users", userDocumentId);
 
-      if (profileDoc.exists()) {
-        // Update the existing profile
-        await updateDoc(profileRef, {
-          username,
-          name,
-          location,
-          bio,
-          // Add other fields as needed
-        });
-        console.log("Profile updated successfully");
-      } else {
-        // Create a new profile document
-        await setDoc(profileRef, {
-          username,
-          name,
-          location,
-          bio,
-          // Add other fields as needed
-        });
-        console.log("New profile created successfully");
+      let dataToUpdate = {}; // Initialize an empty object to hold the data to update
+
+      // Construct the object with non-empty fields
+      if (username !== "") dataToUpdate.username = username;
+      if (name !== "") dataToUpdate.name = name;
+      if (location !== "") dataToUpdate.location = location;
+      if (bio !== "") dataToUpdate.bio = bio;
+
+      // If photo is not null, update imgURL field
+      if (photo) {
+        const imgUrl = await uploadImage(photo);
+        if (imgUrl) {
+          dataToUpdate.imgURL = imgUrl;
+        } else {
+          console.error("Error uploading image: Image URL is null.");
+        }
       }
+
+      await updateDoc(userRef, dataToUpdate);
+      console.log("User profile updated successfully");
+
     } catch (error) {
       console.error("Error saving profile:", error);
     }
@@ -105,6 +125,7 @@ export function EditProfile() {
     if (loading) return;
     if (!user) return navigate("/");
   }, [user, loading]);
+
   return (
     <div
       className="d-flex flex-column min-vh-100"
@@ -112,6 +133,7 @@ export function EditProfile() {
     >
       <Header headerTitle={"Edit Profile"} />
       <div className="container mt-5">
+
         <div className="row mb-3">
           <div className="col">
             <label htmlFor="username" className="form-label">
