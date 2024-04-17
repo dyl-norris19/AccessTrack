@@ -137,7 +137,6 @@ async function deleteRating(ratingId) {
   }
 }
 
-
 // Function to update a pin object in the "pins" collection
 async function updatePin(pinId, updatedData) {
   try {
@@ -160,6 +159,21 @@ async function ratingsByPinID(pinID) {
   return doc;
 }
 
+// returns the average rating for a given pinID
+async function averageRatingByPinID(pinID) {
+  const q = query(collection(db, "pinRating"), where("pinID", "==", pinID));
+  const doc = await getDocs(q);
+  let totalAccuracy = 0;
+  let totalQuality = 0;
+  let count = 0;
+  doc.forEach((rating) => {
+    totalAccuracy += rating.data().accuracy;
+    totalQuality += rating.data().quality;
+    count++;
+  });
+  return [totalAccuracy / count, totalQuality / count];
+}
+
 // returns a boolean for whether the logged in user is an admin
 async function isAdmin() {
   try {
@@ -179,7 +193,6 @@ async function isAdmin() {
     return false;
   }
 }
-
 
 /****************************************************************************************************************************************************************************/
 // react component as an example to display all this stuff, and show how to use it
@@ -334,7 +347,6 @@ function DatabaseStuff() {
     setRatingIdToDelete(event.target.value);
   }
 
-
   function updatePinMine() {
     // Example usage:
     const pinId = "jrAVZNXVLGopG5H7XNic"; // Replace with the actual ID of the pin document
@@ -360,7 +372,6 @@ function DatabaseStuff() {
     });
   }
 
-
   return (
     <div>
       <Header headerTitle={"Database Stuff"} />
@@ -381,7 +392,6 @@ function DatabaseStuff() {
         Click me to get ratings by pin ID
       </button>
       <button onClick={isAdminMine}>Click me to check if user is admin</button>
-
 
       {/* Form for deleting a report */}
       <form onSubmit={handleDeleteReport}>
@@ -439,5 +449,6 @@ export {
   getCurrentUserId,
   updatePin,
   ratingsByPinID,
+  averageRatingByPinID,
   isAdmin,
 };

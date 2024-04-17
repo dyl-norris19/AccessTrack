@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Header, Footer } from "./Template";
 import "./ReportPin.css";
 import { Link } from "react-router-dom";
+import { Timestamp } from "firebase/firestore";
 
 function ReportPin() {
   const { pinID } = useParams();
@@ -25,6 +26,7 @@ function ReportPin() {
       Description: newText,
       creatorID: userId,
       PinId: pinID,
+      Timestamp: Timestamp.now(),
     };
 
     await createReport(report);
