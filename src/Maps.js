@@ -260,8 +260,12 @@ async function retrievePinsForMap(map) {
         .setPopup(
           new mapboxgl.Popup().setHTML(
             `<div style="font-family: Arial, sans-serif;">
-            <h3 style="margin-bottom: 10px; font-size: 18px; color: #333;">${pin.title}</h3>
-            <p style="margin-bottom: 10px; font-size: 14px; color: #666;">${pin.description}</p>
+            <h3 style="margin-bottom: 10px; font-size: 18px; color: #333;">${
+              pin.title
+            }</h3>
+            <p style="margin-bottom: 10px; font-size: 14px; color: #666;">${
+              pin.description
+            }</p>
             <button
               onclick="window.location.href = '/ratePin/' + '${doc.id}'"
                 style="display: block; margin-bottom: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"
@@ -274,6 +278,11 @@ async function retrievePinsForMap(map) {
               >
                 Report Pin
             </button>
+            ${
+              pin.Photo
+                ? `<img src="${pin.Photo}" style="width: 100%; height: auto; margin-bottom: 10px; border-radius: 5px;">`
+                : ""
+            }
             <div style="margin-top: 10px;">
             <strong>Average Accuracy Rating:</strong> ${accuracyDisplay}
             <br>
