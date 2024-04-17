@@ -7,11 +7,15 @@ import { CreatePin } from "./CreatePin.js";
 import { Header, Footer } from "./Template";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import { retrievePins, getCurrentUserId, createPin } from "./database.js";
+import {
+  retrievePins,
+  getCurrentUserId,
+  createPin,
+  averageRatingByPinID,
+} from "./database.js";
 import { auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { GeoPoint, Timestamp } from "firebase/firestore";
-
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaGFsZXluZiIsImEiOiJjbHN5c3hzeTcwZ2pwMmltdXUzdHprYWlsIn0._n2hM1vDIHvaBV8fTORxIw";
