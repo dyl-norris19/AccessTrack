@@ -5,7 +5,7 @@ export default function PinItem(props) {
     return (
         <div className="pin-item" onClick={() => props.onClick(props.pinsInfo.id)}>
             <div className="image-placeholder">
-                <img src={props.pinsInfo.image} />
+                <img src={props.pinsInfo.Photo} alt="Pin Image"/>
             </div>
             <div>
                 <h1 className="pin-list-title">{props.pinsInfo.title}</h1>

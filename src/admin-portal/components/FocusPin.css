@@ -125,7 +125,6 @@
 
 .confirm-window {
     display: flex;
-    visibility: hidden;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -138,10 +137,6 @@
     border-radius: 30px;
     width: 800px;
     height: 300px;
-}
-
-.confirm-window-show {
-    visibility: visible;
 }
 
 .cancel-confirm {
@@ -179,4 +174,20 @@
     height: 50px;
     font-size: 26px;
     font-weight: 600;
+}
+
+.edit-pin-in-focus {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    background-color: #929292;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 30px;
+    width: 800px;
+    height: 300px;
 }
