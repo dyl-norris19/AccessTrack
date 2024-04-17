@@ -7,44 +7,43 @@ import PinItem from "./components/PinItem"
 
 export default function AdminDashboard() {
 
-    const [pins, setPins] = useState([]);
-    const [focusedPin, setFocusedPin] = useState(null)
+    const [pins, setPins] = useState([])
+    const [focusedPinId, setFocusedPinId] = useState(null)
 
     useEffect(() => {
-        fetchData();
+        fetchData()
     }, []);
+
+    useEffect(() => {
+        if (pins.length > 0 && focusedPinId == null)
+            setFocusedPinId(pins[0].id)
+    }, [pins, focusedPinId])
 
     async function fetchData() {
         try {
             const pinsData = await retrievePinsAdmin();
-            setPins(pinsData);
-            if (pinsData.length > 0)
-                setFocusedPin(pinsData[0])
+            setPins(pinsData)
         } catch(error) {
-            console.log(error);
+            console.log(error)
         }
     }
 
-    let popup = document.getElementById("popup")
-
     function changeFocus(id) {
-        const focusedPin = pins.find(pin => pin.id === id)
-        setFocusedPin(focusedPin)
+        setFocusedPinId(id)
     }
 
     async function removePin(pinId) {
         try {
-            await deletePin(pinId);
-            const updatedPins = pins.filter(pin => pin.id !== pinId);
-            setPins(updatedPins);
+            await deletePin(pinId)
+            setPins(prevPins => prevPins.filter(pin => pin.id !== pinId))
 
-            if (focusedPin && focusedPin.id === pinId) {
-                // If the removed pin was the last one, focus on the previous pin
-                // Otherwise, focus on the next pin
-                const focusedPinIndex = updatedPins.findIndex(pin => pin.id === pinId);
-                const nextFocusedPin = focusedPinIndex === updatedPins.length ? updatedPins[focusedPinIndex - 1] : updatedPins[focusedPinIndex];
-                setFocusedPin(nextFocusedPin);
-            }
+            if (focusedPinId === pinId && pins.length > 1) {
+                const newFocusedPinId = pins.find(pin => pin.id !== pinId).id
+                setFocusedPinId(newFocusedPinId)
+
+            } else if (focusedPinId === pinId && pins.length === 1)
+                setFocusedPinId(null)
+
         } catch(error) {
             console.log(error);
         }
@@ -54,10 +53,10 @@ export default function AdminDashboard() {
         <div className="d-flex flex-column min-vh-100">
             <Header headerTitle="Admin Portal" />
             <div className="flex-grow-1 d-flex" id="popup">
-                {focusedPin && (
+                {focusedPinId && (
                     <FocusPin 
-                        pinsInfo={focusedPin}
-                        removePin={() => removePin(focusedPin.id)}
+                        pinsInfo={pins.find(pin => pin.id === focusedPinId)}
+                        removePin={() => removePin(focusedPinId)}
                     />
                 )}
                 <div className="pin-list-container">
