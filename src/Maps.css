@@ -71,6 +71,12 @@
         text-decoration: none;
         display: inline-block;
       }
+
+     .create__textBox {
+        padding: 10px;
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
       
       .dropdown a:hover {background-color: #62CB51;}
       
