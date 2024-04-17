@@ -2,11 +2,15 @@ import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "./Maps.css";
 import "./CreatePin";
+import { uploadImage } from "./storage.js";
 import { CreatePin } from "./CreatePin.js";
 import { Header, Footer } from "./Template";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import { retrievePins } from "./database.js";
+import { retrievePins, getCurrentUserId, createPin } from "./database.js";
+import { auth } from "./firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { GeoPoint, Timestamp } from "firebase/firestore";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaGFsZXluZiIsImEiOiJjbHN5c3hzeTcwZ2pwMmltdXUzdHprYWlsIn0._n2hM1vDIHvaBV8fTORxIw";
@@ -16,6 +20,17 @@ const Map = () => {
   //center on UNT main campus
   const [lng, setLng] = useState(-97.14);
   const [lat, setLat] = useState(33.21);
+  const [newTitle, setTitle] = useState("");
+  const [photo, setPhoto] = useState(null);
+  const [user, loading, error] = useAuthState(auth);
+  const [newText, setText] = useState("");
+
+  const handlePhotoChange = (event) => {
+    const selectedPhoto = event.target.files[0];
+
+    setPhoto(selectedPhoto);
+  };
+
   const [zoom, setZoom] = useState(14);
   let click = false; //variable for right click handling
   const [showPopup, setShowPopup] = useState(false);
@@ -92,9 +107,82 @@ const Map = () => {
     document.getElementById("myDropdown").classList.toggle("show");
   }
 
+  const replacePopup = () => {
+    setShowPopup(false);
+    Pins();
+  };
+
+  function submitPin() {
+    // const photoID = await uploadImage(photo);
+    getCurrentUserId().then(async (uid) => {
+      const pin = {
+        title: newTitle,
+        description: newText,
+        location: new GeoPoint(lat, lng),
+        Photo: await uploadImage(photo),
+        timestamp: Timestamp.now(),
+        creator: uid,
+      };
+      try {
+        createPin(pin);
+        alert("Pin Created!");
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  }
+
   //function that opens pin creation menu
-  function pins() {
-    window.open("/createPin", "noopener");
+  function Pins() {
+    return (
+      <div
+        className="d-flex flex-column min-vh-100"
+        style={{ backgroundColor: "#444040", color: "#6EE05B" }}
+        onContextMenu={handleContextMenu}
+      >
+        {" "}
+        <div>
+          <div>
+            <input
+              type="text"
+              className="create__textBox"
+              value={newTitle}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Pin Title"
+            />
+            <textarea
+              type="text"
+              className="create__textBox"
+              value={newText}
+              onChange={(e) => setText(e.target.value)}
+              placeholder="Description"
+            />
+            <label htmlFor="photo" className="form-label">
+              Photo:
+            </label>
+            <input
+              type="file"
+              className="form-control"
+              id="photo"
+              accept="image/*"
+              onChange={handlePhotoChange}
+              style={{ backgroundColor: "#565656", color: "#fff" }}
+            />
+            {photo && (
+              <img
+                src={URL.createObjectURL(photo)}
+                alt="Selected"
+                className="mt-2 img-thumbnail"
+                style={{ maxWidth: "100px" }}
+              />
+            )}
+            <button className="dropbtn" onClick={submitPin}>
+              Submit Pin
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -202,12 +290,46 @@ const Map = () => {
           arrow={false}
         >
           <div>
-            <button
-              onClick={() => pins()}
-              style={{ display: "block", marginBottom: "10px" }}
-            >
-              Create Pin
-            </button>
+            <div style={{ display: "block", marginBottom: "10px" }}>
+              <div>
+                <input
+                  type="text"
+                  className="create__textBox"
+                  value={newTitle}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="Pin Title"
+                />
+                <input
+                  type="text"
+                  className="create__textBox"
+                  value={newText}
+                  onChange={(e) => setText(e.target.value)}
+                  placeholder="Description"
+                />
+                <label htmlFor="photo" className="form-label">
+                  Photo:
+                </label>
+                <input
+                  type="file"
+                  className="form-control"
+                  id="photo"
+                  accept="image/*"
+                  onChange={handlePhotoChange}
+                  style={{ backgroundColor: "#565656", color: "#fff" }}
+                />
+                {photo && (
+                  <img
+                    src={URL.createObjectURL(photo)}
+                    alt="Selected"
+                    className="mt-2 img-thumbnail"
+                    style={{ maxWidth: "100px" }}
+                  />
+                )}
+                <button className="dropbtn" onClick={submitPin}>
+                  Submit Pin
+                </button>
+              </div>
+            </div>
             <button
               onClick={handleClosePopup}
               style={{ display: "block", marginBottom: "10px" }}
