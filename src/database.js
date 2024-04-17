@@ -28,6 +28,26 @@ async function retrievePins() {
   }
 }
 
+// retreives all pins from the database, and returns said pins in an object array without the accompanying metadata
+function retrievePinsAdmin() {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let pins = [];
+      const q = query(collection(db, "pins"));
+      const doc = await getDocs(q);
+      doc.forEach((doc) => {
+        let data = doc.data();
+        data.id = doc.id;
+        pins.push(data);
+      });
+      resolve(pins);
+    } catch (err) {
+      console.error(err);
+      reject("An error occurred while fetching pins");
+    }
+  });
+}
+
 // retreives all reports from the database, and returns said reports
 async function retrieveReports() {
   try {
@@ -422,6 +442,7 @@ function DatabaseStuff() {
 export {
   DatabaseStuff,
   retrievePins,
+  retrievePinsAdmin,
   createPin,
   deletePin,
   retrieveReports,

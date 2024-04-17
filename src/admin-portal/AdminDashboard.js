@@ -1,54 +1,67 @@
-import React from "react"
+import React, {useState, useEffect} from "react"
+import {retrievePinsAdmin, deletePin} from "../database.js"
 import "./AdminDashboard.css"
 import { Header, Footer } from "../Template"
 import FocusPin from "./components/FocusPin"
 import PinItem from "./components/PinItem"
-import pinsData from "./pinsData"
 
 export default function AdminDashboard() {
-    const pinsInfo = []
 
-    pinsData.data.pins.map(pin => {
-        pinsInfo.push({
-            id: pin.id,
-            title: pin.title,
-            time: pin.time,
-            location: pin.location,
-            rating: pin.rating,
-            image: pin.image,
-            description: pin.description,
-            tags: pin.tags.join(", ")
-        })
-    })
+    const [pins, setPins] = useState([]);
+    const [focusedPin, setFocusedPin] = useState(null)
 
-    const [pin, setPin] = React.useState(pinsInfo[0])
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    async function fetchData() {
+        try {
+            const pinsData = await retrievePinsAdmin();
+            setPins(pinsData);
+            if (pinsData.length > 0)
+                setFocusedPin(pinsData[0])
+        } catch(error) {
+            console.log(error);
+        }
+    }
 
     let popup = document.getElementById("popup")
 
     function changeFocus(id) {
-        let index
-        for (let i = 0; i < pinsInfo.length; i++)
-            if (pinsInfo[i].id === id)
-                index = i
-
-        setPin(pinsInfo[index])
+        const focusedPin = pins.find(pin => pin.id === id)
+        setFocusedPin(focusedPin)
     }
 
-    function blur() {
-        console.log("blur")
+    async function removePin(pinId) {
+        try {
+            await deletePin(pinId);
+            const updatedPins = pins.filter(pin => pin.id !== pinId);
+            setPins(updatedPins);
+
+            if (focusedPin && focusedPin.id === pinId) {
+                // If the removed pin was the last one, focus on the previous pin
+                // Otherwise, focus on the next pin
+                const focusedPinIndex = updatedPins.findIndex(pin => pin.id === pinId);
+                const nextFocusedPin = focusedPinIndex === updatedPins.length ? updatedPins[focusedPinIndex - 1] : updatedPins[focusedPinIndex];
+                setFocusedPin(nextFocusedPin);
+            }
+        } catch(error) {
+            console.log(error);
+        }
     }
 
     return (
         <div className="d-flex flex-column min-vh-100">
             <Header headerTitle="Admin Portal" />
             <div className="flex-grow-1 d-flex" id="popup">
-                <FocusPin 
-                    key={pin.id}
-                    pinsInfo={pin}
-                    blur={() => blur()}
-                />
+                {focusedPin && (
+                    <FocusPin 
+                        pinsInfo={focusedPin}
+                        removePin={() => removePin(focusedPin.id)}
+                    />
+                )}
                 <div className="pin-list-container">
-                    {pinsInfo.map(pin => (
+                    {pins.map(pin => (
                         <PinItem
                             key={pin.id}
                             pinsInfo={pin}
