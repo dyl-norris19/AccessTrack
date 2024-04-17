@@ -252,8 +252,6 @@ async function retrievePinsForMap(map) {
       const latitude = pin.location.latitude;
       const longitude = pin.location.longitude;
 
-      console.log(map);
-
       //create marker
       new mapboxgl.Marker(el)
         .setLngLat([longitude, latitude])
@@ -284,11 +282,10 @@ async function retrievePinsForMap(map) {
                 : ""
             }
             <div style="margin-top: 10px;">
-            <strong>Average Accuracy Rating:</strong> ${accuracyDisplay}
-            <br>
-            <strong>Average Quality Rating:</strong> ${qualityDisplay}
-          </div>
-
+              <strong>Average Accuracy Rating:</strong> ${accuracyDisplay}
+              <br>
+              <strong>Average Quality Rating:</strong> ${qualityDisplay}
+            </div>
           </div>`
           )
         )
