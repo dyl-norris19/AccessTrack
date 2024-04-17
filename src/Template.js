@@ -78,7 +78,7 @@ export function Footer() {
   };
   return (
     <div className="footer d-flex justify-content-between align-items-center">
-      <p style={centeredTextStyle}>Team Sad Cat FTW!</p>
+      <p style={centeredTextStyle}> AccessTrack | A Project by HappyCat</p>
       <div>
         <a href="/register" className="text-light me-3">
           Create an Account
