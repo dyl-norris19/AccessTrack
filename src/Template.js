@@ -64,7 +64,7 @@ export function Header({ headerTitle }) {
           About Us
         </a>
         <LoginButton />
-        <CreatePinButton />
+        {/* <CreatePinButton /> */}
       </div>
     </div>
   );
