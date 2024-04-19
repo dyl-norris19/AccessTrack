@@ -30,6 +30,7 @@ function ReportPin() {
     };
 
     await createReport(report);
+    alert("Report Submitted");
     window.location.href = "/";
   }
 

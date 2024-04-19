@@ -33,6 +33,7 @@ function RatePin() {
     };
 
     await createRating(report);
+    alert("Rating Submitted");
     window.location.href = "/";
   }
 
