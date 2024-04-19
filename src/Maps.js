@@ -37,7 +37,6 @@ const Map = () => {
   };
 
   const [zoom, setZoom] = useState(14);
-  let click = false; //variable for right click handling
   const [showPopup, setShowPopup] = useState(false);
 
   const handleContextMenu = (e) => {
@@ -66,8 +65,6 @@ const Map = () => {
 
     //main click handler
     map.on("click", (e) => {
-      click = false; //reset click to false
-
       //center the map on the coordinates of user click
       map.flyTo({
         center: e.lngLat,
@@ -81,24 +78,7 @@ const Map = () => {
       // create DOM element for the marker
       const el = document.createElement("div");
       el.id = "marker";
-
-      // currently commented out to avoid interference with the pins being rendered from the database
-      // //create marker
-      // new mapboxgl.Marker(el).setLngLat(e.lngLat).addTo(map);
-
-      //after user sets a marker, set to true to prep for pin menu
-      click = true;
     }); //on click ending brackets
-
-    // //second click handler, leads to pin creation menu
-    // map.on("mouseover", (e) => {
-    //   if ((click = true)) {
-    //     //needs user to create marker before accessing pin menu
-    //     map.on("contextmenu", function (e) {
-    //       pins(); //function that opens the window to pin creation
-    //     });
-    //   }
-    // });
 
     // renders all pins from the database
     retrievePinsForMap(map);
@@ -257,29 +237,6 @@ const Map = () => {
         {/*PIN DROPDOWN MENU DIV*/}
       </div>{" "}
       {/*PIN BUTTON MENU DIV*/}
-      {/*   HTML FOR NEW CREATE PIN MENU - NEEDS EDITING
-        <div className="pinposition">
-          <div className="box">
-            Create Pin
-          <div className="textbox">
-           title
-          </div>
-          <div className="textbox">
-            description
-          </div>
-          <div className="textbox">
-           location
-          </div>
-          <div className="textbox">
-           tags
-          </div>
-          <div className="confirm" onClick={pins}>
-            <b>Jump to create pin page</b>
-          </div>
-          <div className="exit">
-            Cancel
-          </div>
-          </div> {/*BOX DIV*/}
       {/*}    </div> {/*PIN POSITION DIV*/}
       <div>
         <Popup
@@ -347,17 +304,6 @@ const Map = () => {
     </div> /*MAIN DIV*/
   );
 };
-
-// // function to retrieve ratings for pins
-// async function averageRatingByPinIDMine(pinID) {
-//   try {
-//     const [quality, accuracy] = await averageRatingByPinID(pinID);
-//     console.log(quality, accuracy);
-//     return [quality, accuracy];
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
 
 // grabs the pins from the db and renders them
 async function retrievePinsForMap(map) {
