@@ -93,6 +93,11 @@
         color: #ffffff;
      }
 
+    ::placeholder 
+    {
+         color: white;
+    }
+
         .container {
   display: block;
   position: relative;
