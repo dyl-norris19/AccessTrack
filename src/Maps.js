@@ -356,6 +356,28 @@ const Map = () => {
                     style={{ maxWidth: "100px" }}
                   />
                 )}
+                <div id="myDropdown" className="dropdown-content">
+                {" "}
+                {/*PIN DROPDOWN MENU DIV*/}
+                <label className="dropdown-option">Wheelchair Ramps</label>
+                <br />
+                <input
+                  type="checkbox"
+                  className="dropdown-group"
+                  value="Crosswalks"
+                />
+                <label className="dropdown-option">Crosswalks</label>
+                <br />
+                <input type="checkbox" className="dropdown-group" value="Elevators" />
+                <label className="dropdown-option">Elevators</label>
+                <br />
+                <input
+                  type="checkbox"
+                  className="dropdown-group"
+                  value="Dropped Curbs"
+                />
+                <label className="dropdown-option">Dropped Curbs</label>
+                </div>{" "}
                 <button className="dropbtn" onClick={submitPin}>
                   Submit Pin
                 </button>
