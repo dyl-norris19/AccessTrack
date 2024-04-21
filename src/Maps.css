@@ -77,6 +77,14 @@
         font-size: 18px;
         margin-bottom: 10px;
       }
+     .description_box{
+        width: 100%;
+        height: 150px;
+        font-size: 18px;
+        padding: 12px 20px;
+        margin-bottom: 10px;
+     }
+
       
       .dropdown a:hover {background-color: #62CB51;}
       
