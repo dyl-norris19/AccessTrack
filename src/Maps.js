@@ -213,7 +213,7 @@ const Map = () => {
                   onClick={authLog}
                   style={{ display: "block", marginBottom: "10px" }}
                   >
-                    Cancel
+                    Login
                   </button>
                   <button
                   onClick={handleClosePopup}
@@ -296,67 +296,7 @@ const Map = () => {
       {/*PIN BUTTON MENU DIV*/}
       {/*}    </div> {/*PIN POSITION DIV*/}
       <div>
-        <Popup
-          open={showPopup}
-          closeOnDocumentClick
-          onClose={handleClosePopup}
-          contentStyle={{
-            background: "white",
-            border: "1px solid #ccc",
-            padding: "20px",
-            borderRadius: "8px",
-          }}
-          arrow={false}
-        >
-          <div>
-            <div style={{ display: "block", marginBottom: "10px" }}>
-              <div>
-                <input
-                  type="text"
-                  className="create__textBox"
-                  value={newTitle}
-                  onChange={(e) => setTitle(e.target.value)}
-                  placeholder="Pin Title"
-                />
-                <input
-                  type="text"
-                  className="create__textBox"
-                  value={newText}
-                  onChange={(e) => setText(e.target.value)}
-                  placeholder="Description"
-                />
-                <label htmlFor="photo" className="form-label">
-                  Photo:
-                </label>
-                <input
-                  type="file"
-                  className="form-control"
-                  id="photo"
-                  accept="image/*"
-                  onChange={handlePhotoChange}
-                  style={{ backgroundColor: "#565656", color: "#fff" }}
-                />
-                {photo && (
-                  <img
-                    src={URL.createObjectURL(photo)}
-                    alt="Selected"
-                    className="mt-2 img-thumbnail"
-                    style={{ maxWidth: "100px" }}
-                  />
-                )}
-                <button className="dropbtn" onClick={submitPin}>
-                  Submit Pin
-                </button>
-              </div>
-            </div>
-            <button
-              onClick={handleClosePopup}
-              style={{ display: "block", marginBottom: "10px" }}
-            >
-              Cancel
-            </button>
-          </div>
-        </Popup>
+        <Pins></Pins>
       </div>
     </div> /*MAIN DIV*/
   );
