@@ -356,7 +356,7 @@ const Map = () => {
                     style={{ maxWidth: "100px" }}
                   />
                 )}
-                <div id="myDropdown" className="dropdown-content">
+                <div>
                 {" "}
                 <label class="container">Wheelchair Ramp
                   <input type="checkbox"></input>
