@@ -6,6 +6,7 @@ import { uploadImage } from "./storage.js";
 import { CreatePin } from "./CreatePin.js";
 import { Header, Footer } from "./Template";
 import Popup from "reactjs-popup";
+import { Link, useNavigate } from "react-router-dom";
 import "reactjs-popup/dist/index.css";
 import {
   retrievePins,
@@ -29,6 +30,7 @@ const Map = () => {
   const [photo, setPhoto] = useState(null);
   const [user, loading, error] = useAuthState(auth);
   const [newText, setText] = useState("");
+  const history = useNavigate();
 
   const handlePhotoChange = (event) => {
     const selectedPhoto = event.target.files[0];
@@ -111,63 +113,118 @@ const Map = () => {
       try {
         createPin(pin);
         alert("Pin Created!");
+        history("/");
       } catch (error) {
         console.error(error);
       }
     });
   }
 
+  function authLog() 
+  {
+    history("/login");
+  }
+
   //function that opens pin creation menu
   function Pins() {
-    return (
-      <div
-        className="d-flex flex-column min-vh-100"
-        style={{ backgroundColor: "#444040", color: "#6EE05B" }}
-        onContextMenu={handleContextMenu}
-      >
-        {" "}
-        <div>
+      if(user)
+      {
+        return (
+        <Popup
+          open={showPopup}
+          closeOnDocumentClick
+          onClose={handleClosePopup}
+          contentStyle={{
+            background: "white",
+            border: "1px solid #ccc",
+            padding: "20px",
+            borderRadius: "8px",
+          }}
+          arrow={false}
+        >
           <div>
-            <input
-              type="text"
-              className="create__textBox"
-              value={newTitle}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Pin Title"
-            />
-            <textarea
-              type="text"
-              className="create__textBox"
-              value={newText}
-              onChange={(e) => setText(e.target.value)}
-              placeholder="Description"
-            />
-            <label htmlFor="photo" className="form-label">
-              Photo:
-            </label>
-            <input
-              type="file"
-              className="form-control"
-              id="photo"
-              accept="image/*"
-              onChange={handlePhotoChange}
-              style={{ backgroundColor: "#565656", color: "#fff" }}
-            />
-            {photo && (
-              <img
-                src={URL.createObjectURL(photo)}
-                alt="Selected"
-                className="mt-2 img-thumbnail"
-                style={{ maxWidth: "100px" }}
-              />
-            )}
-            <button className="dropbtn" onClick={submitPin}>
-              Submit Pin
+            <div style={{ display: "block", marginBottom: "10px" }}>
+              <div>
+                <input
+                  type="text"
+                  className="create__textBox"
+                  value={newTitle}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="Pin Title"
+                />
+                <input
+                  type="text"
+                  className="create__textBox"
+                  value={newText}
+                  onChange={(e) => setText(e.target.value)}
+                  placeholder="Description"
+                />
+                <label htmlFor="photo" className="form-label">
+                  Photo:
+                </label>
+                <input
+                  type="file"
+                  className="form-control"
+                  id="photo"
+                  accept="image/*"
+                  onChange={handlePhotoChange}
+                  style={{ backgroundColor: "#565656", color: "#fff" }}
+                />
+                {photo && (
+                  <img
+                    src={URL.createObjectURL(photo)}
+                    alt="Selected"
+                    className="mt-2 img-thumbnail"
+                    style={{ maxWidth: "100px" }}
+                  />
+                )}
+                <button className="dropbtn" onClick={submitPin}>
+                  Submit Pin
+                </button>
+              </div>
+            </div>
+            <button
+              onClick={handleClosePopup}
+              style={{ display: "block", marginBottom: "10px" }}
+            >
+              Cancel
             </button>
           </div>
-        </div>
-      </div>
-    );
+        </Popup>
+        );
+      }
+      else
+      {
+            return(
+                <Popup
+                open={showPopup}
+                closeOnDocumentClick
+                onClose={handleClosePopup}
+                contentStyle={{
+                  background: "white",
+                  border: "1px solid #ccc",
+                  padding: "20px",
+                  borderRadius: "8px",
+                }}
+                arrow={false}
+                >
+                <div>
+                  <button
+                  onClick={authLog}
+                  style={{ display: "block", marginBottom: "10px" }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                  onClick={handleClosePopup}
+                  style={{ display: "block", marginBottom: "10px" }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+                </Popup>
+            );
+      }
   }
 
   return (
