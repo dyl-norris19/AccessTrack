@@ -125,6 +125,8 @@ const Map = () => {
     history("/login");
   }
 
+  function 
+
   //function that opens pin creation menu
   function Pins() {
       if(user)
@@ -156,7 +158,7 @@ const Map = () => {
                   type="text"
                   className="create__textBox"
                   value={newText}
-                  onChange={(e) => setText(e.target.value)}
+                  onChange={(e) => setText(e.target.value); this.focus()}
                   placeholder="Description"
                 />
                 <label htmlFor="photo" className="form-label">
