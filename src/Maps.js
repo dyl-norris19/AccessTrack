@@ -349,12 +349,6 @@ const Map = () => {
           <div>
             <div style={{ display: "block", marginBottom: "10px" }}>
               <div>
-                <style>
-                    ::placeholder 
-                    {
-                      color: white;
-                    }
-                </style>
                 <input
                   type="text"
                   id="box"
