@@ -31,6 +31,7 @@ const Map = () => {
   const [user, loading, error] = useAuthState(auth);
   const [newText, setText] = useState("");
   const history = useNavigate();
+  const textInputRef = useRef(null);
 
   const handlePhotoChange = (event) => {
     const selectedPhoto = event.target.files[0];
