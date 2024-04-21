@@ -131,10 +131,10 @@ const Map = () => {
         description: newText,
         location: new GeoPoint(lat, lng),
         Photo: await uploadImage(photo),
-        Wheel = isWheel;
-        Elev = isElev;
-        Cross = isCross;
-        Curb = isCurb;
+        Wheel: isWheel;
+        Elev: isElev;
+        Cross: isCross;
+        Curb: isCurb;
         timestamp: Timestamp.now(),
         creator: uid,
       };
