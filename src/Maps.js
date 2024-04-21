@@ -359,19 +359,19 @@ const Map = () => {
                 <div id="myDropdown" className="dropdown-content">
                 {" "}
                 <label class="container">Wheelchair Ramp
-                  <input type="checkbox" checked="checked">
+                  <input type="checkbox"></input>
                   <span class="checkmark"></span>
                 </label>
                 <label class="container">Elevator
-                  <input type="checkbox">
+                  <input type="checkbox"></input>
                   <span class="checkmark"></span>
                 </label>
                 <label class="container">Crosswalk
-                  <input type="checkbox">
+                  <input type="checkbox"></input>
                   <span class="checkmark"></span>
                 </label>
                 <label class="container">Dropped Curb
-                  <input type="checkbox">
+                  <input type="checkbox"></input>
                   <span class="checkmark"></span>
                 </label>
                 </div>{" "}
