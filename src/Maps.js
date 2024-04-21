@@ -126,14 +126,6 @@ const Map = () => {
     history("/login");
   }
 
-  function focusInput()
-  {
-    if(document.getElementById("box").hasFocus())
-    {
-      document.getElementById("boxTwo").focus();
-    }
-  }
-
   const focusTextInput = () => {
     if (textInputRef.current) {
       textInputRef.current.focus();
@@ -173,7 +165,7 @@ const Map = () => {
                   id="boxTwo"
                   className="create__textBox"
                   value={newText}
-                  onChange={(e) => {setText(e.target.value); focusInput()}}
+                  onChange={(e) => setText(e.target.value)}
                   placeholder="Description"
                   ref={textInputRef}
                 />
