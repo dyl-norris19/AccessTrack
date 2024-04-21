@@ -412,9 +412,9 @@ const Map = () => {
             </div>
             <button
               onClick={handleClosePopup}
-              style={{ display: "block", marginBottom: "10px" }}
+              className="dropbtn"
             >
-              Cancel
+              Cancel Pin
             </button>
           </div>
         </Popup>
