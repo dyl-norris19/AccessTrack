@@ -94,11 +94,6 @@ const Map = () => {
     document.getElementById("myDropdown").classList.toggle("show");
   }
 
-  const replacePopup = () => {
-    setShowPopup(false);
-    Pins();
-  };
-
   function submitPin() {
     // const photoID = await uploadImage(photo);
     let isWheel = "False";
