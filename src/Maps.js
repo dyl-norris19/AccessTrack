@@ -125,6 +125,11 @@ const Map = () => {
     history("/login");
   }
 
+  function focusInput()
+  {
+    document.getElementById("box").focus();
+  }
+
   //function that opens pin creation menu
   function Pins() {
       if(user)
@@ -154,9 +159,10 @@ const Map = () => {
                 />
                 <input
                   type="text"
+                  id="box"
                   className="create__textBox"
                   value={newText}
-                  onChange={(e) => {setText(e.target.value); this.focus() }}
+                  onChange={(e) => {setText(e.target.value); focusInput()}}
                   placeholder="Description"
                 />
                 <label htmlFor="photo" className="form-label">
