@@ -267,7 +267,7 @@ const Map = () => {
                   id="photo"
                   accept="image/*"
                   onChange={handlePhotoChange}
-                  style={{ backgroundColor: "#565656", color: "#fff" }}
+                  style={{ backgroundColor: "#565656", color: "#fff", margin-bottom: 10px}}
                 />
                 {photo && (
                   <img
