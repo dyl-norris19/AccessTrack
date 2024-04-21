@@ -7,7 +7,12 @@ import { CreatePin } from "./CreatePin.js";
 import { Header, Footer } from "./Template";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import { retrievePins, getCurrentUserId, createPin } from "./database.js";
+import {
+  retrievePins,
+  getCurrentUserId,
+  createPin,
+  averageRatingByPinID,
+} from "./database.js";
 import { auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { GeoPoint, Timestamp } from "firebase/firestore";
@@ -32,7 +37,6 @@ const Map = () => {
   };
 
   const [zoom, setZoom] = useState(14);
-  let click = false; //variable for right click handling
   const [showPopup, setShowPopup] = useState(false);
 
   const handleContextMenu = (e) => {
@@ -61,8 +65,6 @@ const Map = () => {
 
     //main click handler
     map.on("click", (e) => {
-      click = false; //reset click to false
-
       //center the map on the coordinates of user click
       map.flyTo({
         center: e.lngLat,
@@ -76,24 +78,7 @@ const Map = () => {
       // create DOM element for the marker
       const el = document.createElement("div");
       el.id = "marker";
-
-      // currently commented out to avoid interference with the pins being rendered from the database
-      // //create marker
-      // new mapboxgl.Marker(el).setLngLat(e.lngLat).addTo(map);
-
-      //after user sets a marker, set to true to prep for pin menu
-      click = true;
     }); //on click ending brackets
-
-    // //second click handler, leads to pin creation menu
-    // map.on("mouseover", (e) => {
-    //   if ((click = true)) {
-    //     //needs user to create marker before accessing pin menu
-    //     map.on("contextmenu", function (e) {
-    //       pins(); //function that opens the window to pin creation
-    //     });
-    //   }
-    // });
 
     // renders all pins from the database
     retrievePinsForMap(map);
@@ -252,29 +237,6 @@ const Map = () => {
         {/*PIN DROPDOWN MENU DIV*/}
       </div>{" "}
       {/*PIN BUTTON MENU DIV*/}
-      {/*   HTML FOR NEW CREATE PIN MENU - NEEDS EDITING
-        <div className="pinposition">
-          <div className="box">
-            Create Pin
-          <div className="textbox">
-           title
-          </div>
-          <div className="textbox">
-            description
-          </div>
-          <div className="textbox">
-           location
-          </div>
-          <div className="textbox">
-           tags
-          </div>
-          <div className="confirm" onClick={pins}>
-            <b>Jump to create pin page</b>
-          </div>
-          <div className="exit">
-            Cancel
-          </div>
-          </div> {/*BOX DIV*/}
       {/*}    </div> {/*PIN POSITION DIV*/}
       <div>
         <Popup
@@ -346,15 +308,22 @@ const Map = () => {
 // grabs the pins from the db and renders them
 async function retrievePinsForMap(map) {
   try {
-    const doc = await retrievePins();
-    doc.forEach((doc) => {
+    let doc = await retrievePins();
+    doc.forEach(async (doc) => {
       const pin = doc.data();
+      const [accuracy, quality] = await averageRatingByPinID(doc.id);
+      const accuracyDisplay = isNaN(accuracy)
+        ? "There are no ratings for this pin yet. Be the First!"
+        : accuracy.toFixed(2);
+      const qualityDisplay = isNaN(quality)
+        ? "There are no ratings for this pin yet. Be the First!"
+        : quality.toFixed(2);
+
       const el = document.createElement("div");
+      el.id = "marker";
 
       const latitude = pin.location.latitude;
       const longitude = pin.location.longitude;
-
-      el.id = "marker";
 
       //create marker
       new mapboxgl.Marker(el)
@@ -362,20 +331,34 @@ async function retrievePinsForMap(map) {
         .setPopup(
           new mapboxgl.Popup().setHTML(
             `<div style="font-family: Arial, sans-serif;">
-            <h3 style="margin-bottom: 10px; font-size: 18px; color: #333;">${pin.title}</h3>
-            <p style="margin-bottom: 10px; font-size: 14px; color: #666;">${pin.description}</p>
+            <h3 style="margin-bottom: 10px; font-size: 18px; color: #333;">${
+              pin.title
+            }</h3>
+            <p style="margin-bottom: 10px; font-size: 14px; color: #666;">${
+              pin.description
+            }</p>
             <button
-              onclick="console.log('Rate Pin clicked')"
-              style="display: block; margin-bottom: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"
-            >
-              Rate Pin
+              onclick="window.location.href = '/ratePin/' + '${doc.id}'"
+                style="display: block; margin-bottom: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"
+              >
+                Rate Pin
             </button>
             <button
-            onclick="window.location.href = '/reportPin/' + '${doc.id}'"
-              style="display: block; margin-bottom: 10px; background-color: #dc3545; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"
-            >
-              Report Pin
+              onclick="window.location.href = '/reportPin/' + '${doc.id}'"
+                style="display: block; margin-bottom: 10px; background-color: #dc3545; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"
+              >
+                Report Pin
             </button>
+            ${
+              pin.Photo
+                ? `<img src="${pin.Photo}" style="width: 100%; height: auto; margin-bottom: 10px; border-radius: 5px;">`
+                : ""
+            }
+            <div style="margin-top: 10px;">
+              <strong>Average Accuracy Rating:</strong> ${accuracyDisplay}
+              <br>
+              <strong>Average Quality Rating:</strong> ${qualityDisplay}
+            </div>
           </div>`
           )
         )

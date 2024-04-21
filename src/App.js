@@ -7,7 +7,7 @@ import { DatabaseStuff } from "./database";
 import CreatePin from "./CreatePin";
 import Maps from "./Maps";
 import ReportPin from "./ReportPin";
-
+import RatePin from "./RatePin";
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
         <Route exact path="/dashboard" element={<EditProfile />} />
         <Route exact path="/createPin" element={<CreatePin />} />
         <Route exact path="/reportPin/:pinID" element={<ReportPin />} />
+        <Route exact path="/ratePin/:pinID" element={<RatePin />} />
       </Routes>
     </BrowserRouter>
   );
