@@ -101,12 +101,34 @@ const Map = () => {
 
   function submitPin() {
     // const photoID = await uploadImage(photo);
+    const tags = [];
+    var wheel = document.getElementById("checkOne");
+    var elev = document.getElementById("checkTwo");
+    var cross = document.getElementById("checkThree");
+    var curb = document.getElementById("checkFour");
+    if(wheel.checked == true)
+    {
+       tags[tags.length] = "Wheelchair Ramp";
+    }
+    if(elev.checked == true)
+    {
+       tags[tags.length] = "Elevator";
+    }
+    if(cross.checked == true)
+    {
+       tags[tags.length] = "Crosswalk";
+    }
+    if(curb.checked == true)
+    {
+       tags[tags.length] = "Dropped Curb";
+    }
     getCurrentUserId().then(async (uid) => {
       const pin = {
         title: newTitle,
         description: newText,
         location: new GeoPoint(lat, lng),
         Photo: await uploadImage(photo),
+        Tags: = tags,
         timestamp: Timestamp.now(),
         creator: uid,
       };
@@ -359,19 +381,19 @@ const Map = () => {
                 <div>
                 {" "}
                 <label class="container">Wheelchair Ramp
-                  <input type="checkbox"></input>
+                  <input type="checkbox" id="checkOne"></input>
                   <span class="checkmark"></span>
                 </label>
                 <label class="container">Elevator
-                  <input type="checkbox"></input>
+                  <input type="checkbox" id="checkTwo"></input>
                   <span class="checkmark"></span>
                 </label>
                 <label class="container">Crosswalk
-                  <input type="checkbox"></input>
+                  <input type="checkbox" id="checkThree"></input>
                   <span class="checkmark"></span>
                 </label>
                 <label class="container">Dropped Curb
-                  <input type="checkbox"></input>
+                  <input type="checkbox" id="checkFour"></input>
                   <span class="checkmark"></span>
                 </label>
                 </div>{" "}
