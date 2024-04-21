@@ -163,7 +163,7 @@ const Map = () => {
                 <input
                   type="text"
                   id="boxTwo"
-                  className="create__textBox"
+                  className="description_box"
                   value={newText}
                   onChange={(e) => setText(e.target.value)}
                   placeholder="Description"
