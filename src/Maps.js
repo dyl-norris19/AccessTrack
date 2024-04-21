@@ -125,8 +125,6 @@ const Map = () => {
     history("/login");
   }
 
-  function 
-
   //function that opens pin creation menu
   function Pins() {
       if(user)
