@@ -128,7 +128,7 @@ const Map = () => {
         description: newText,
         location: new GeoPoint(lat, lng),
         Photo: await uploadImage(photo),
-        Tags: = tags,
+        Tags: tags,
         timestamp: Timestamp.now(),
         creator: uid,
       };
