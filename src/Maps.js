@@ -101,26 +101,29 @@ const Map = () => {
 
   function submitPin() {
     // const photoID = await uploadImage(photo);
-    const tags = [];
+    let isWheel = "False";
+    let isElev = "False";
+    let isCross = "False";
+    let isCurb = "False";
     var wheel = document.getElementById("checkOne");
     var elev = document.getElementById("checkTwo");
     var cross = document.getElementById("checkThree");
     var curb = document.getElementById("checkFour");
     if(wheel.checked == true)
     {
-       tags[tags.length] = "Wheelchair Ramp";
+       isWheel = "True";
     }
     if(elev.checked == true)
     {
-       tags[tags.length] = "Elevator";
+       isElev = "True";
     }
     if(cross.checked == true)
     {
-       tags[tags.length] = "Crosswalk";
+       isCross = "True";
     }
     if(curb.checked == true)
     {
-       tags[tags.length] = "Dropped Curb";
+       isCurb = "True";
     }
     getCurrentUserId().then(async (uid) => {
       const pin = {
@@ -128,7 +131,10 @@ const Map = () => {
         description: newText,
         location: new GeoPoint(lat, lng),
         Photo: await uploadImage(photo),
-        Tags: tags,
+        Wheel = isWheel;
+        Elev = isElev;
+        Cross = isCross;
+        Curb = isCurb;
         timestamp: Timestamp.now(),
         creator: uid,
       };
