@@ -127,7 +127,7 @@ const Map = () => {
   }
 
   const focusTextInput = () => {
-    if (textInputRef.current) {
+    if (!(textInputRef.current)) {
       textInputRef.current.focus();
     }
   };
