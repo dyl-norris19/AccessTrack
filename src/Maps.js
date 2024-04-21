@@ -156,7 +156,7 @@ const Map = () => {
                   type="text"
                   className="create__textBox"
                   value={newText}
-                  onChange={(e) => setText(e.target.value); this.focus()}
+                  onChange={(e) => {setText(e.target.value); this.focus() }}
                   placeholder="Description"
                 />
                 <label htmlFor="photo" className="form-label">
