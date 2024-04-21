@@ -78,6 +78,7 @@
         font-size: 18px;
         margin-bottom: 10px;
         background-color: #000000;
+        color: #ffffff;
       }
      .description_box{
         width: 100%;
@@ -87,8 +88,9 @@
         resize: none;
         margin-bottom: 10px;
         margin-top: 10px;
-        padding-bottom: 25%;
+        padding-bottom: 20%;
         background-color: #000000;
+        color: #ffffff;
      }
 
         .container {
