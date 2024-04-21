@@ -358,25 +358,22 @@ const Map = () => {
                 )}
                 <div id="myDropdown" className="dropdown-content">
                 {" "}
-                {/*PIN DROPDOWN MENU DIV*/}
-                <label className="dropdown-option">Wheelchair Ramps</label>
-                <br />
-                <input
-                  type="checkbox"
-                  className="dropdown-group"
-                  value="Crosswalks"
-                />
-                <label className="dropdown-option">Crosswalks</label>
-                <br />
-                <input type="checkbox" className="dropdown-group" value="Elevators" />
-                <label className="dropdown-option">Elevators</label>
-                <br />
-                <input
-                  type="checkbox"
-                  className="dropdown-group"
-                  value="Dropped Curbs"
-                />
-                <label className="dropdown-option">Dropped Curbs</label>
+                <label class="container">Wheelchair Ramp
+                  <input type="checkbox" checked="checked">
+                  <span class="checkmark"></span>
+                </label>
+                <label class="container">Elevator
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                </label>
+                <label class="container">Crosswalk
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                </label>
+                <label class="container">Dropped Curb
+                  <input type="checkbox">
+                  <span class="checkmark"></span>
+                </label>
                 </div>{" "}
                 <button className="dropbtn" onClick={submitPin}>
                   Submit Pin
