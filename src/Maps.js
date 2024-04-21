@@ -240,7 +240,9 @@ const Map = () => {
       }
   }
 
-  return (
+  if(user)
+  {
+    return (
     <div
       className="d-flex flex-column min-vh-100"
       style={{ backgroundColor: "#444040", color: "#6EE05B" }}
@@ -309,10 +311,176 @@ const Map = () => {
       {/*PIN BUTTON MENU DIV*/}
       {/*}    </div> {/*PIN POSITION DIV*/}
       <div>
-        <Pins></Pins>
+        <Popup
+          open={showPopup}
+          closeOnDocumentClick
+          onClose={handleClosePopup}
+          contentStyle={{
+            background: "white",
+            border: "1px solid #ccc",
+            padding: "20px",
+            borderRadius: "8px",
+          }}
+          arrow={false}
+        >
+          <div>
+            <div style={{ display: "block", marginBottom: "10px" }}>
+              <div>
+                <input
+                  type="text"
+                  id="box"
+                  className="create__textBox"
+                  value={newTitle}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="Pin Title"
+                />
+                <input
+                  type="text"
+                  id="boxTwo"
+                  className="description_box"
+                  value={newText}
+                  onChange={(e) => setText(e.target.value)}
+                  placeholder="Description"
+                  ref={textInputRef}
+                />
+                <label htmlFor="photo" className="form-label">
+                  Photo:
+                </label>
+                <input
+                  type="file"
+                  className="form-control"
+                  id="photo"
+                  accept="image/*"
+                  onChange={handlePhotoChange}
+                  style={{ backgroundColor: "#565656", color: "#fff" }}
+                />
+                {photo && (
+                  <img
+                    src={URL.createObjectURL(photo)}
+                    alt="Selected"
+                    className="mt-2 img-thumbnail"
+                    style={{ maxWidth: "100px" }}
+                  />
+                )}
+                <button className="dropbtn" onClick={submitPin}>
+                  Submit Pin
+                </button>
+              </div>
+            </div>
+            <button
+              onClick={handleClosePopup}
+              style={{ display: "block", marginBottom: "10px" }}
+            >
+              Cancel
+            </button>
+          </div>
+        </Popup>
       </div>
     </div> /*MAIN DIV*/
   );
+  }
+  else
+  {
+    return (
+    <div
+      className="d-flex flex-column min-vh-100"
+      style={{ backgroundColor: "#444040", color: "#6EE05B" }}
+      onContextMenu={handleContextMenu}
+    >
+      {" "}
+      {/*MAIN DIV*/}
+      <Header headerTitle={"Map"} />
+      {/* TEMPORARY - JUST TO MAKE SURE COORDS ARE UPDATING*/}
+      <div className="sidebar">
+        {" "}
+        {/*COORD DIV*/}
+        Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+      </div>
+      <div className="map-container" ref={mapContainerRef} /> {/*MAP DIV*/}
+      <div className="dropdown">
+        {" "}
+        {/*PIN BUTTON MENU DIV*/}
+        <button className="dropbtn" onClick={dropDown}>
+          Pins
+        </button>{" "}
+        {/*INITIAL PIN MENU BUTTON*/}
+        <div id="myDropdown" className="dropdown-content">
+          {" "}
+          {/*PIN DROPDOWN MENU DIV*/}
+          <input
+            type="checkbox"
+            className="dropdown-group"
+            value="View All Pins"
+          />
+          <label className="dropdown-option">View All Pins</label>
+          <br />
+          <input
+            type="checkbox"
+            className="dropdown-group"
+            value="View Pins Near Me"
+          />
+          <label className="dropdown-option">View Pins Near Me</label>
+          <br />
+          <input
+            type="checkbox"
+            className="dropdown-group"
+            value="Wheelchair Ramps"
+          />
+          <label className="dropdown-option">Wheelchair Ramps</label>
+          <br />
+          <input
+            type="checkbox"
+            className="dropdown-group"
+            value="Crosswalks"
+          />
+          <label className="dropdown-option">Crosswalks</label>
+          <br />
+          <input type="checkbox" className="dropdown-group" value="Elevators" />
+          <label className="dropdown-option">Elevators</label>
+          <br />
+          <input
+            type="checkbox"
+            className="dropdown-group"
+            value="Dropped Curbs"
+          />
+          <label className="dropdown-option">Dropped Curbs</label>
+        </div>{" "}
+        {/*PIN DROPDOWN MENU DIV*/}
+      </div>{" "}
+      {/*PIN BUTTON MENU DIV*/}
+      {/*}    </div> {/*PIN POSITION DIV*/}
+      <div>
+        <Popup
+            open={showPopup}
+            closeOnDocumentClick
+            onClose={handleClosePopup}
+              contentStyle={{
+                  background: "white",
+                  border: "1px solid #ccc",
+                  padding: "20px",
+                  borderRadius: "8px",
+                }}
+                arrow={false}
+                >
+                <div>
+                  <button
+                  onClick={authLog}
+                  style={{ display: "block", marginBottom: "10px" }}
+                  >
+                    Login
+                  </button>
+                  <button
+                  onClick={handleClosePopup}
+                  style={{ display: "block", marginBottom: "10px" }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+        </Popup>
+      </div>
+    </div> /*MAIN DIV*/
+  );
+  }
 };
 
 // grabs the pins from the db and renders them
