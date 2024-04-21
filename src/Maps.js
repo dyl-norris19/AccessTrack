@@ -128,7 +128,10 @@ const Map = () => {
 
   function focusInput()
   {
-    document.getElementById("box").focus();
+    if(document.getElementById("box").hasFocus())
+    {
+      document.getElementById("boxTwo").focus();
+    }
   }
 
   const focusTextInput = () => {
@@ -159,6 +162,7 @@ const Map = () => {
               <div>
                 <input
                   type="text"
+                  id="box"
                   className="create__textBox"
                   value={newTitle}
                   onChange={(e) => setTitle(e.target.value)}
@@ -166,7 +170,7 @@ const Map = () => {
                 />
                 <input
                   type="text"
-                  id="box"
+                  id="boxTwo"
                   className="create__textBox"
                   value={newText}
                   onChange={(e) => {setText(e.target.value); focusInput()}}
