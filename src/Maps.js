@@ -31,7 +31,6 @@ const Map = () => {
   const [user, loading, error] = useAuthState(auth);
   const [newText, setText] = useState("");
   const history = useNavigate();
-  const textInputRef = useRef(null);
 
   const handlePhotoChange = (event) => {
     const selectedPhoto = event.target.files[0];
@@ -115,9 +114,7 @@ const Map = () => {
         createPin(pin);
         alert("Pin Created!");
         setShowPopup(false);
-        <script>
-          location.href = location.href;
-        </script>
+        reloadPage();
       } catch (error) {
         console.error(error);
       }
@@ -129,11 +126,10 @@ const Map = () => {
     history("/login");
   }
 
-  const focusTextInput = () => {
-    if (!(textInputRef.current)) {
-      textInputRef.current.focus();
-    }
-  };
+  function reloadPage()
+  {
+      window.location.replace(window.location.origin);
+  }
 
   //function that opens pin creation menu
   function Pins() {
@@ -170,7 +166,6 @@ const Map = () => {
                   value={newText}
                   onChange={(e) => setText(e.target.value)}
                   placeholder="Description"
-                  ref={textInputRef}
                 />
                 <label htmlFor="photo" className="form-label">
                   Photo:
