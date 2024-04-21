@@ -82,7 +82,7 @@
         height: 150px;
         font-size: 18px;
         padding: 12px 20px;
-        margin-bottom: 10px;
+        resize: none;
      }
 
       
