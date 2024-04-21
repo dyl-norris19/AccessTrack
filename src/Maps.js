@@ -336,7 +336,6 @@ const Map = () => {
                   value={newText}
                   onChange={(e) => setText(e.target.value)}
                   placeholder="Description"
-                  ref={textInputRef}
                 />
                 <label htmlFor="photo" className="form-label">
                   Photo:
