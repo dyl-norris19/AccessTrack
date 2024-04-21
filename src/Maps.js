@@ -114,7 +114,10 @@ const Map = () => {
       try {
         createPin(pin);
         alert("Pin Created!");
-        history("/");
+        setShowPopup(false);
+        <script>
+          location.reload();
+        </script>
       } catch (error) {
         console.error(error);
       }
