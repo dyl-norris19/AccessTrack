@@ -94,7 +94,7 @@ const Map = () => {
     document.getElementById("myDropdown").classList.toggle("show");
   }
 
-  function submitPin() {
+  async function submitPin() {
     // const photoID = await uploadImage(photo);
     let isWheel = "False";
     let isElev = "False";
@@ -104,21 +104,17 @@ const Map = () => {
     var elev = document.getElementById("checkTwo");
     var cross = document.getElementById("checkThree");
     var curb = document.getElementById("checkFour");
-    if(wheel.checked == true)
-    {
-       isWheel = "True";
+    if (wheel.checked == true) {
+      isWheel = "True";
     }
-    if(elev.checked == true)
-    {
-       isElev = "True";
+    if (elev.checked == true) {
+      isElev = "True";
     }
-    if(cross.checked == true)
-    {
-       isCross = "True";
+    if (cross.checked == true) {
+      isCross = "True";
     }
-    if(curb.checked == true)
-    {
-       isCurb = "True";
+    if (curb.checked == true) {
+      isCurb = "True";
     }
     getCurrentUserId().then(async (uid) => {
       const pin = {
@@ -134,7 +130,7 @@ const Map = () => {
         creator: uid,
       };
       try {
-        createPin(pin);
+        await createPin(pin);
         alert("Pin Created!");
         setShowPopup(false);
         reloadPage();
@@ -144,279 +140,287 @@ const Map = () => {
     });
   }
 
-  function authLog() 
-  {
+  function authLog() {
     history("/login");
   }
 
-  function reloadPage()
-  {
-      window.location.replace(window.location.origin);
+  function reloadPage() {
+    window.location.replace(window.location.origin);
   }
 
-  if(user)
-  {
+  if (user) {
     return (
-    <div
-      className="d-flex flex-column min-vh-100"
-      style={{ backgroundColor: "#444040", color: "#6EE05B" }}
-      onContextMenu={handleContextMenu}
-    >
-      {" "}
-      {/*MAIN DIV*/}
-      <Header headerTitle={"Map"} />
-      {/* TEMPORARY - JUST TO MAKE SURE COORDS ARE UPDATING*/}
-      <div className="sidebar">
+      <div
+        className="d-flex flex-column min-vh-100"
+        style={{ backgroundColor: "#444040", color: "#6EE05B" }}
+        onContextMenu={handleContextMenu}
+      >
         {" "}
-        {/*COORD DIV*/}
-        Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-      </div>
-      <div className="map-container" ref={mapContainerRef} /> {/*MAP DIV*/}
-      <div className="dropdown">
-        {" "}
-        {/*PIN BUTTON MENU DIV*/}
-        <button className="dropbtn" onClick={dropDown}>
-          Pins
-        </button>{" "}
-        {/*INITIAL PIN MENU BUTTON*/}
-        <div id="myDropdown" className="dropdown-content">
+        {/*MAIN DIV*/}
+        <Header headerTitle={"Map"} />
+        {/* TEMPORARY - JUST TO MAKE SURE COORDS ARE UPDATING*/}
+        <div className="sidebar">
           {" "}
-          {/*PIN DROPDOWN MENU DIV*/}
-          <input
-            type="checkbox"
-            className="dropdown-group"
-            value="View All Pins"
-          />
-          <label className="dropdown-option">View All Pins</label>
-          <br />
-          <input
-            type="checkbox"
-            className="dropdown-group"
-            value="View Pins Near Me"
-          />
-          <label className="dropdown-option">View Pins Near Me</label>
-          <br />
-          <input
-            type="checkbox"
-            className="dropdown-group"
-            value="Wheelchair Ramps"
-          />
-          <label className="dropdown-option">Wheelchair Ramps</label>
-          <br />
-          <input
-            type="checkbox"
-            className="dropdown-group"
-            value="Crosswalks"
-          />
-          <label className="dropdown-option">Crosswalks</label>
-          <br />
-          <input type="checkbox" className="dropdown-group" value="Elevators" />
-          <label className="dropdown-option">Elevators</label>
-          <br />
-          <input
-            type="checkbox"
-            className="dropdown-group"
-            value="Dropped Curbs"
-          />
-          <label className="dropdown-option">Dropped Curbs</label>
-        </div>{" "}
-        {/*PIN DROPDOWN MENU DIV*/}
-      </div>{" "}
-      {/*PIN BUTTON MENU DIV*/}
-      {/*}    </div> {/*PIN POSITION DIV*/}
-      <div>
-        <Popup
-          open={showPopup}
-          closeOnDocumentClick
-          onClose={handleClosePopup}
-          contentStyle={{
-            background: "white",
-            border: "1px solid #ccc",
-            padding: "20px",
-            borderRadius: "8px",
-          }}
-          arrow={false}
-        >
-          <div>
-            <div style={{ display: "block", marginBottom: "10px" }}>
-              <div>
-                <input
-                  type="text"
-                  id="box"
-                  className="create__textBox"
-                  value={newTitle}
-                  onChange={(e) => setTitle(e.target.value)}
-                  placeholder="Pin Title"
-                />
-                <textarea
-                  type="text"
-                  id="boxTwo"
-                  rows="10" 
-                  cols="100"
-                  className="description_box"
-                  value={newText}
-                  onChange={(e) => setText(e.target.value)}
-                  placeholder="Description"
-                />
-                <label htmlFor="photo" className="form-label">
-                  Photo:
-                </label>
-                <input
-                  type="file"
-                  className="form-control"
-                  id="photo"
-                  accept="image/*"
-                  onChange={handlePhotoChange}
-                  style={{ backgroundColor: "#565656", color: "#fff", marginBottom: "10px"}}
-                />
-                {photo && (
-                  <img
-                    src={URL.createObjectURL(photo)}
-                    alt="Selected"
-                    className="mt-2 img-thumbnail"
-                    style={{ maxWidth: "100px" }}
-                  />
-                )}
-                <div>
-                {" "}
-                <label htmlFor="photo" className="form-label">
-                  Tags
-                </label>
-                <label class="container">Wheelchair Ramp
-                  <input type="checkbox" id="checkOne"></input>
-                  <span class="checkmark"></span>
-                </label>
-                <label class="container">Elevator
-                  <input type="checkbox" id="checkTwo"></input>
-                  <span class="checkmark"></span>
-                </label>
-                <label class="container">Crosswalk
-                  <input type="checkbox" id="checkThree"></input>
-                  <span class="checkmark"></span>
-                </label>
-                <label class="container">Dropped Curb
-                  <input type="checkbox" id="checkFour"></input>
-                  <span class="checkmark"></span>
-                </label>
-                </div>{" "}
-                <button className="dropbtn" onClick={submitPin}>
-                  Submit Pin
-                </button>
-              </div>
-            </div>
-            <button
-              onClick={handleClosePopup}
-              className="dropbtn"
-            >
-              Cancel Pin
-            </button>
-          </div>
-        </Popup>
-      </div>
-    </div> /*MAIN DIV*/
-  );
-  }
-  else
-  {
-    return (
-    <div
-      className="d-flex flex-column min-vh-100"
-      style={{ backgroundColor: "#444040", color: "#6EE05B" }}
-      onContextMenu={handleContextMenu}
-    >
-      {" "}
-      {/*MAIN DIV*/}
-      <Header headerTitle={"Map"} />
-      {/* TEMPORARY - JUST TO MAKE SURE COORDS ARE UPDATING*/}
-      <div className="sidebar">
-        {" "}
-        {/*COORD DIV*/}
-        Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-      </div>
-      <div className="map-container" ref={mapContainerRef} /> {/*MAP DIV*/}
-      <div className="dropdown">
-        {" "}
-        {/*PIN BUTTON MENU DIV*/}
-        <button className="dropbtn" onClick={dropDown}>
-          Pins
-        </button>{" "}
-        {/*INITIAL PIN MENU BUTTON*/}
-        <div id="myDropdown" className="dropdown-content">
+          {/*COORD DIV*/}
+          Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+        </div>
+        <div className="map-container" ref={mapContainerRef} /> {/*MAP DIV*/}
+        <div className="dropdown">
           {" "}
+          {/*PIN BUTTON MENU DIV*/}
+          <button className="dropbtn" onClick={dropDown}>
+            Pins
+          </button>{" "}
+          {/*INITIAL PIN MENU BUTTON*/}
+          <div id="myDropdown" className="dropdown-content">
+            {" "}
+            {/*PIN DROPDOWN MENU DIV*/}
+            <input
+              type="checkbox"
+              className="dropdown-group"
+              value="View All Pins"
+            />
+            <label className="dropdown-option">View All Pins</label>
+            <br />
+            <input
+              type="checkbox"
+              className="dropdown-group"
+              value="View Pins Near Me"
+            />
+            <label className="dropdown-option">View Pins Near Me</label>
+            <br />
+            <input
+              type="checkbox"
+              className="dropdown-group"
+              value="Wheelchair Ramps"
+            />
+            <label className="dropdown-option">Wheelchair Ramps</label>
+            <br />
+            <input
+              type="checkbox"
+              className="dropdown-group"
+              value="Crosswalks"
+            />
+            <label className="dropdown-option">Crosswalks</label>
+            <br />
+            <input
+              type="checkbox"
+              className="dropdown-group"
+              value="Elevators"
+            />
+            <label className="dropdown-option">Elevators</label>
+            <br />
+            <input
+              type="checkbox"
+              className="dropdown-group"
+              value="Dropped Curbs"
+            />
+            <label className="dropdown-option">Dropped Curbs</label>
+          </div>{" "}
           {/*PIN DROPDOWN MENU DIV*/}
-          <input
-            type="checkbox"
-            className="dropdown-group"
-            value="View All Pins"
-          />
-          <label className="dropdown-option">View All Pins</label>
-          <br />
-          <input
-            type="checkbox"
-            className="dropdown-group"
-            value="View Pins Near Me"
-          />
-          <label className="dropdown-option">View Pins Near Me</label>
-          <br />
-          <input
-            type="checkbox"
-            className="dropdown-group"
-            value="Wheelchair Ramps"
-          />
-          <label className="dropdown-option">Wheelchair Ramps</label>
-          <br />
-          <input
-            type="checkbox"
-            className="dropdown-group"
-            value="Crosswalks"
-          />
-          <label className="dropdown-option">Crosswalks</label>
-          <br />
-          <input type="checkbox" className="dropdown-group" value="Elevators" />
-          <label className="dropdown-option">Elevators</label>
-          <br />
-          <input
-            type="checkbox"
-            className="dropdown-group"
-            value="Dropped Curbs"
-          />
-          <label className="dropdown-option">Dropped Curbs</label>
         </div>{" "}
-        {/*PIN DROPDOWN MENU DIV*/}
-      </div>{" "}
-      {/*PIN BUTTON MENU DIV*/}
-      {/*}    </div> {/*PIN POSITION DIV*/}
-      <div>
-        <Popup
+        {/*PIN BUTTON MENU DIV*/}
+        {/*}    </div> {/*PIN POSITION DIV*/}
+        <div>
+          <Popup
             open={showPopup}
             closeOnDocumentClick
             onClose={handleClosePopup}
-              contentStyle={{
-                  background: "white",
-                  border: "1px solid #ccc",
-                  padding: "20px",
-                  borderRadius: "8px",
-                }}
-                arrow={false}
-                >
+            contentStyle={{
+              background: "white",
+              border: "1px solid #ccc",
+              padding: "20px",
+              borderRadius: "8px",
+            }}
+            arrow={false}
+          >
+            <div>
+              <div style={{ display: "block", marginBottom: "10px" }}>
                 <div>
-                  <button
-                  onClick={authLog}
-                  style={{ display: "block", marginBottom: "10px" }}
-                  >
-                    Login
-                  </button>
-                  <button
-                  onClick={handleClosePopup}
-                  style={{ display: "block", marginBottom: "10px" }}
-                  >
-                    Cancel
+                  <input
+                    type="text"
+                    id="box"
+                    className="create__textBox"
+                    value={newTitle}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Pin Title"
+                  />
+                  <textarea
+                    type="text"
+                    id="boxTwo"
+                    rows="10"
+                    cols="100"
+                    className="description_box"
+                    value={newText}
+                    onChange={(e) => setText(e.target.value)}
+                    placeholder="Description"
+                  />
+                  <label htmlFor="photo" className="form-label">
+                    Photo:
+                  </label>
+                  <input
+                    type="file"
+                    className="form-control"
+                    id="photo"
+                    accept="image/*"
+                    onChange={handlePhotoChange}
+                    style={{
+                      backgroundColor: "#565656",
+                      color: "#fff",
+                      marginBottom: "10px",
+                    }}
+                  />
+                  {photo && (
+                    <img
+                      src={URL.createObjectURL(photo)}
+                      alt="Selected"
+                      className="mt-2 img-thumbnail"
+                      style={{ maxWidth: "100px" }}
+                    />
+                  )}
+                  <div>
+                    {" "}
+                    <label htmlFor="photo" className="form-label">
+                      Tags
+                    </label>
+                    <label class="container">
+                      Wheelchair Ramp
+                      <input type="checkbox" id="checkOne"></input>
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="container">
+                      Elevator
+                      <input type="checkbox" id="checkTwo"></input>
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="container">
+                      Crosswalk
+                      <input type="checkbox" id="checkThree"></input>
+                      <span class="checkmark"></span>
+                    </label>
+                    <label class="container">
+                      Dropped Curb
+                      <input type="checkbox" id="checkFour"></input>
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>{" "}
+                  <button className="dropbtn" onClick={submitPin}>
+                    Submit Pin
                   </button>
                 </div>
-        </Popup>
-      </div>
-    </div> /*MAIN DIV*/
-  );
+              </div>
+              <button onClick={handleClosePopup} className="dropbtn">
+                Cancel Pin
+              </button>
+            </div>
+          </Popup>
+        </div>
+      </div> /*MAIN DIV*/
+    );
+  } else {
+    return (
+      <div
+        className="d-flex flex-column min-vh-100"
+        style={{ backgroundColor: "#444040", color: "#6EE05B" }}
+        onContextMenu={handleContextMenu}
+      >
+        {" "}
+        {/*MAIN DIV*/}
+        <Header headerTitle={"Map"} />
+        {/* TEMPORARY - JUST TO MAKE SURE COORDS ARE UPDATING*/}
+        <div className="sidebar">
+          {" "}
+          {/*COORD DIV*/}
+          Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+        </div>
+        <div className="map-container" ref={mapContainerRef} /> {/*MAP DIV*/}
+        <div className="dropdown">
+          {" "}
+          {/*PIN BUTTON MENU DIV*/}
+          <button className="dropbtn" onClick={dropDown}>
+            Pins
+          </button>{" "}
+          {/*INITIAL PIN MENU BUTTON*/}
+          <div id="myDropdown" className="dropdown-content">
+            {" "}
+            {/*PIN DROPDOWN MENU DIV*/}
+            <input
+              type="checkbox"
+              className="dropdown-group"
+              value="View All Pins"
+            />
+            <label className="dropdown-option">View All Pins</label>
+            <br />
+            <input
+              type="checkbox"
+              className="dropdown-group"
+              value="View Pins Near Me"
+            />
+            <label className="dropdown-option">View Pins Near Me</label>
+            <br />
+            <input
+              type="checkbox"
+              className="dropdown-group"
+              value="Wheelchair Ramps"
+            />
+            <label className="dropdown-option">Wheelchair Ramps</label>
+            <br />
+            <input
+              type="checkbox"
+              className="dropdown-group"
+              value="Crosswalks"
+            />
+            <label className="dropdown-option">Crosswalks</label>
+            <br />
+            <input
+              type="checkbox"
+              className="dropdown-group"
+              value="Elevators"
+            />
+            <label className="dropdown-option">Elevators</label>
+            <br />
+            <input
+              type="checkbox"
+              className="dropdown-group"
+              value="Dropped Curbs"
+            />
+            <label className="dropdown-option">Dropped Curbs</label>
+          </div>{" "}
+          {/*PIN DROPDOWN MENU DIV*/}
+        </div>{" "}
+        {/*PIN BUTTON MENU DIV*/}
+        {/*}    </div> {/*PIN POSITION DIV*/}
+        <div>
+          <Popup
+            open={showPopup}
+            closeOnDocumentClick
+            onClose={handleClosePopup}
+            contentStyle={{
+              background: "white",
+              border: "1px solid #ccc",
+              padding: "20px",
+              borderRadius: "8px",
+            }}
+            arrow={false}
+          >
+            <div>
+              <button
+                onClick={authLog}
+                style={{ display: "block", marginBottom: "10px" }}
+              >
+                Login
+              </button>
+              <button
+                onClick={handleClosePopup}
+                style={{ display: "block", marginBottom: "10px" }}
+              >
+                Cancel
+              </button>
+            </div>
+          </Popup>
+        </div>
+      </div> /*MAIN DIV*/
+    );
   }
 };
 
