@@ -115,7 +115,6 @@ export function EditProfile() {
 
       await updateDoc(userRef, dataToUpdate);
       console.log("User profile updated successfully");
-
     } catch (error) {
       console.error("Error saving profile:", error);
     }
@@ -132,8 +131,7 @@ export function EditProfile() {
       style={{ backgroundColor: "#444040", color: "#fff" }}
     >
       <Header headerTitle={"Edit Profile"} />
-      <div className="container mt-5">
-
+      <div className="dashboard__container mt-5">
         <div className="row mb-3">
           <div className="col">
             <label htmlFor="username" className="form-label">
@@ -148,6 +146,7 @@ export function EditProfile() {
               style={{ backgroundColor: "#565656", color: "#fff" }}
             />
           </div>
+
           <div className="col">
             <label htmlFor="name" className="form-label">
               Change Name:
@@ -161,19 +160,23 @@ export function EditProfile() {
               style={{ backgroundColor: "#565656", color: "#fff" }}
             />
           </div>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="location" className="form-label">
-            Location:
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            style={{ backgroundColor: "#565656", color: "#fff" }}
-          />
+
+          <div className="row mb-3">
+            <div className="col">
+              <label htmlFor="location" className="form-label">
+                Location:
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                style={{ backgroundColor: "#565656", color: "#fff" }}
+              />
+            </div>
+            <div className="col"></div>
+          </div>
         </div>
         <div className="mb-3">
           <label htmlFor="photo" className="form-label">
@@ -208,21 +211,23 @@ export function EditProfile() {
             style={{ backgroundColor: "#565656", color: "#fff" }}
           />
         </div>
-        <button
-          className="btn btn-primary me-2"
-          style={{ backgroundColor: "#6EE05B" }}
-          onClick={handleSaveChanges}
-        >
-          Confirm my choices
-        </button>
-        <button
-          className="btn btn-secondary"
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          Cancel
-        </button>
+        <div>
+          <button
+            className="btn btn-primary me-2"
+            style={{ backgroundColor: "#6EE05B" }}
+            onClick={handleSaveChanges}
+          >
+            Confirm my choices
+          </button>
+          <button
+            className="btn btn-secondary"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Cancel
+          </button>
+        </div>
       </div>
       <Footer />
     </div>

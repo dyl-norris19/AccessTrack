@@ -23,6 +23,9 @@ export function Login() {
       <Header headerTitle={"Login"} />
       <div className="login flex-grow-1 d-flex">
         <div className="login__container">
+          <label htmlFor="email" className="form-label">
+            E-mail Address:
+          </label>
           <input
             type="text"
             className="login__textBox"
@@ -30,6 +33,9 @@ export function Login() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="E-mail Address"
           />
+          <label htmlFor="password" className="form-label">
+            Password:
+          </label>
           <input
             type="password"
             className="login__textBox"
@@ -47,7 +53,7 @@ export function Login() {
             <Link to="/reset">Forgot Password</Link>
           </div>
           <div>
-            Don't have an account? <Link to="/register">Register</Link> now.
+            Don't have an account? <Link to="/register">Register now.</Link>
           </div>
         </div>
       </div>
