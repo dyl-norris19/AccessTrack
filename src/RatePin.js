@@ -47,7 +47,7 @@ function RatePin() {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      <Header headerTitle={"Report Pin"} />
+      <Header headerTitle={"Rate Pin"} />
       <div className="register  flex-grow-1 d-flex">
         <div className="create__container">
           <textarea
