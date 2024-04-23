@@ -40,7 +40,7 @@ export function Logout() {
     <div className="d-flex flex-column min-vh-100">
       <Header headerTitle={"Logout"} />
       <div className="dashboard flex-grow-1 d-flex">
-        <div className="dashboard__container">
+        <div className="dashboard__container__lo">
           Logged in as
           <div>{name}</div>
           <div>{user?.email}</div>
