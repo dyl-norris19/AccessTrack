@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import {retrievePinsAdmin, deletePin} from "../database.js"
+import {retrievePinsAdmin, deletePin, ratingsByPinID} from "../database.js"
 import "./AdminDashboard.css"
 import { Header, Footer } from "../Template"
 import FocusPin from "./components/FocusPin"
@@ -9,10 +9,11 @@ export default function AdminDashboard() {
 
     const [pins, setPins] = useState([])
     const [focusedPinId, setFocusedPinId] = useState(null)
+    const [fetchDataTrigger, setFetchDataTrigger] = useState(false)
 
     useEffect(() => {
         fetchData()
-    }, []);
+    }, [fetchDataTrigger]);
 
     useEffect(() => {
         if (pins.length > 0 && focusedPinId == null)
@@ -49,6 +50,10 @@ export default function AdminDashboard() {
         }
     }
 
+    function triggerDataFetch() {
+        setFetchDataTrigger(prevTrigger => !prevTrigger)
+    }
+
     return (
         <div className="d-flex flex-column min-vh-100">
             <Header headerTitle="Admin Portal" />
@@ -57,6 +62,7 @@ export default function AdminDashboard() {
                     <FocusPin 
                         pinsInfo={pins.find(pin => pin.id === focusedPinId)}
                         removePin={() => removePin(focusedPinId)}
+                        updateFocus={() => triggerDataFetch()}
                     />
                 )}
                 <div className="pin-list-container">

@@ -1,8 +1,8 @@
 import React from "react"
-import Link from "react-router-dom";
+import { useState, useEffect } from 'react'
+import Popup from 'reactjs-popup'
 import "./FocusPin.css"
-import { useState } from 'react';
-import Popup from 'reactjs-popup';
+import {updatePin} from "../../database.js"
 
 export default function FocusPin(props) {
 
@@ -12,20 +12,39 @@ export default function FocusPin(props) {
     const [openEdit, setOpenEdit] = useState(false); 
     const closeModalEdit = () => setOpenEdit(false);
 
-    const [editedTitle, setEditedTitle] = useState(props.pinsInfo.title);
-    const [editedDescription, setEditedDescription] = useState(props.pinsInfo.description);
-    const [editedTags, setEditedTags] = useState(props.pinsInfo.tags);
+    const [editedTitle, setEditedTitle] = useState("");
+    const [editedDescription, setEditedDescription] = useState("");
+    const [editedTags, setEditedTags] = useState("");
+
+    useEffect(() => {
+        setEditedTitle(props.pinsInfo.title);
+        setEditedDescription(props.pinsInfo.description)
+        setEditedTags(props.pinsInfo.tags)
+    }, [props.pinsInfo])
 
     // Function to handle pin edit submission
-    const handleEditSubmit = () => {
-        // Call a function to submit the edited pin information
-        // For now, let's just log the edited information
-        console.log("Edited Title:", editedTitle);
-        console.log("Edited Description:", editedDescription);
-        console.log("Edited Tags:", editedTags);
-        // You can replace the console.log statements with the function to submit changes to the backend
-        // Remember to close the edit modal after submitting changes
-        closeModalEdit();
+    const handleEditSubmit = async () => {
+        const updatedTitle = editedTitle !== undefined ? editedTitle : "";
+        const updatedDescription = editedDescription !== undefined ? editedDescription : "";
+        const updatedTags = editedTags !== undefined ? editedTags : "";
+        
+        const updatedPinData = {
+            title: updatedTitle,
+            description: updatedDescription,
+            tags: updatedTags
+            // Add more properties if needed
+        };
+    
+        try {
+            await updatePin(props.pinsInfo.id, updatedPinData);
+            console.log("Pin updated successfully!");
+            closeModalEdit();
+        } catch (error) {
+            console.error("Error updating pin:", error);
+            // Handle error (e.g., show error message to the user)
+        }
+
+        props.updateFocus()
     };
 
     return (
@@ -78,25 +97,38 @@ export default function FocusPin(props) {
                     <Popup open={openEdit} onClose={closeModalEdit}>
                         <div className="edit-pin-in-focus">
                             <h1>Edit Pin</h1>
-                            <input
-                                type="text"
-                                value={editedTitle}
-                                onChange={(e) => setEditedTitle(e.target.value)}
-                                placeholder="Title"
-                            />
-                            <textarea
-                                value={editedDescription}
-                                onChange={(e) => setEditedDescription(e.target.value)}
-                                placeholder="Description"
-                            />
-                            <input
-                                type="text"
-                                value={editedTags}
-                                onChange={(e) => setEditedTags(e.target.value)}
-                                placeholder="Tags"
-                            />
-                            <button onClick={closeModalEdit}>Cancel</button>
-                            <button onClick={handleEditSubmit}>Submit Changes</button>
+                            <div className="form-container">
+                                <div>
+                                    <h3>Title</h3>
+                                    <input
+                                        type="text"
+                                        value={editedTitle}
+                                        onChange={(e) => setEditedTitle(e.target.value)}
+                                        placeholder="Title"
+                                    />
+                                </div>
+                                <div>
+                                    <h3>Description</h3>
+                                    <textarea
+                                        value={editedDescription}
+                                        onChange={(e) => setEditedDescription(e.target.value)}
+                                        placeholder="Description"
+                                    />
+                                </div>
+                                <div>
+                                    <h3>Tags</h3>
+                                    <input
+                                        type="text"
+                                        value={editedTags}
+                                        onChange={(e) => setEditedTags(e.target.value)}
+                                        placeholder="Tags"
+                                    />
+                                </div>
+                            </div>
+                            <div className="button-container">
+                                <button className="edit-cancel" onClick={closeModalEdit}>Cancel</button>
+                                <button className="edit-confirm" onClick={handleEditSubmit}>Submit Changes</button>
+                            </div>
                         </div>
                     </Popup>
                 </div>
