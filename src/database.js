@@ -179,6 +179,21 @@ async function ratingsByPinID(pinID) {
   return doc;
 }
 
+// returns the average rating for a given pinID
+async function averageRatingByPinID(pinID) {
+  const q = query(collection(db, "pinRating"), where("pinID", "==", pinID));
+  const doc = await getDocs(q);
+  let totalAccuracy = 0;
+  let totalQuality = 0;
+  let count = 0;
+  doc.forEach((rating) => {
+    totalAccuracy += rating.data().accuracy;
+    totalQuality += rating.data().quality;
+    count++;
+  });
+  return [totalAccuracy / count, totalQuality / count];
+}
+
 // returns a boolean for whether the logged in user is an admin
 async function isAdmin() {
   try {
@@ -390,6 +405,7 @@ function DatabaseStuff() {
       <button onClick={retrieveRatingsMine}>
         Click me to retrieve ratings
       </button>
+
       <button onClick={updatePinMine}>Click me to update a pin</button>
       <button onClick={ratingsByPinIDMine}>
         {" "}
@@ -454,5 +470,6 @@ export {
   getCurrentUserId,
   updatePin,
   ratingsByPinID,
+  averageRatingByPinID,
   isAdmin,
 };
