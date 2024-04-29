@@ -45,7 +45,7 @@
       
       /*  DROPDOWN MENU   */
       .dropdown-content {
-        display: none;
+        /*display: none;*/
         position: absolute;
         text-align: left;
         color: black;
@@ -301,7 +301,9 @@ right:0;
   /*  PIN CREATION  */
 
   /* MARKER */
-  #marker {
+  /*Had to change to a class in order to change style*/
+  .marker {
+    display: flex;
     background-image: url(/public/pin.png);
     background-size: contain;
     background-repeat: no-repeat;
