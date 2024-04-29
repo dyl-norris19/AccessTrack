@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import {retrievePinsAdmin, deletePin, ratingsByPinID} from "../database.js"
+import {retrievePinsAdmin, deletePin, averageRatingByPinID} from "../database.js"
 import "./AdminDashboard.css"
 import { Header, Footer } from "../Template"
 import FocusPin from "./components/FocusPin"
@@ -9,6 +9,7 @@ export default function AdminDashboard() {
 
     const [pins, setPins] = useState([])
     const [focusedPinId, setFocusedPinId] = useState(null)
+    const [pinRating, setPinRating] = useState(null)
     const [fetchDataTrigger, setFetchDataTrigger] = useState(false)
 
     useEffect(() => {
@@ -54,6 +55,17 @@ export default function AdminDashboard() {
         setFetchDataTrigger(prevTrigger => !prevTrigger)
     }
 
+    useEffect(() => {
+        const fetchAverageRatings = async () => {
+            const averageRatings = await Promise.all(
+                pins.map(pin => averageRatingByPinID(pin.id))
+            );
+            setPinRating(averageRatings);
+        };
+
+        fetchAverageRatings();
+    }, [pins]);
+
     return (
         <div className="d-flex flex-column min-vh-100">
             <Header headerTitle="Admin Portal" />
@@ -63,16 +75,26 @@ export default function AdminDashboard() {
                         pinsInfo={pins.find(pin => pin.id === focusedPinId)}
                         removePin={() => removePin(focusedPinId)}
                         updateFocus={() => triggerDataFetch()}
+                        avgQualityRating={pinRating && pinRating[pins.findIndex((pin) => pin.id === focusedPinId)] ? pinRating[pins.findIndex((pin) => pin.id === focusedPinId)][0] : null}
+                        avgAccuracyRating={pinRating && pinRating[pins.findIndex((pin) => pin.id === focusedPinId)] ? pinRating[pins.findIndex((pin) => pin.id === focusedPinId)][1] : null}
                     />
                 )}
                 <div className="pin-list-container">
-                    {pins.map(pin => (
-                        <PinItem
-                            key={pin.id}
-                            pinsInfo={pin}
-                            onClick={() => changeFocus(pin.id)}
-                        />
-                    ))}
+                    {pins.map((pin, index) => {
+                        // Check if pinRating is available and has valid elements
+                        const avgQualityRating = pinRating && pinRating[index] ? pinRating[index][0] : null;
+                        const avgAccuracyRating = pinRating && pinRating[index] ? pinRating[index][1] : null;
+
+                        return (
+                            <PinItem
+                                key={pin.id}
+                                pinsInfo={pin}
+                                onClick={() => changeFocus(pin.id)}
+                                avgQualityRating={avgQualityRating}
+                                avgAccuracyRating={avgAccuracyRating}
+                            />
+                        );
+                    })}
                 </div>
             </div>
             <Footer />

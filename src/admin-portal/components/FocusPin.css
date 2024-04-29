@@ -60,20 +60,25 @@
 
 .location-and-rating {
     margin-block: 0px;
-    font-size: 45px;
+    font-size: 34px;
     font-weight: 400;
 }
 
 .rating {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     margin-bottom: 10px;
 }
 
-.rating > img {
+.rating-item > img {
     margin-left: 5px;
     width: 45px;
     height: 45px;
+}
+
+.rating-item {
+    display: flex;
+    flex-direction: row; /* or display: block; depending on your layout preference */
 }
 
 .description {
