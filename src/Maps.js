@@ -21,7 +21,7 @@ import { GeoPoint, Timestamp } from "firebase/firestore";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaGFsZXluZiIsImEiOiJjbHN5c3hzeTcwZ2pwMmltdXUzdHprYWlsIn0._n2hM1vDIHvaBV8fTORxIw";
 
-const Map = () => {
+function Map() {
   const mapContainerRef = useRef(null);
   //center on UNT main campus
   const [lng, setLng] = useState(-97.14);
@@ -54,7 +54,6 @@ const Map = () => {
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: "mapbox://styles/haleynf/cltvx0hq2008j01nogmol3zqa/draft",
       center: [lng, lat],
       zoom: zoom,
     });
@@ -422,7 +421,7 @@ const Map = () => {
       </div> /*MAIN DIV*/
     );
   }
-};
+}
 
 // grabs the pins from the db and renders them
 async function retrievePinsForMap(map) {
@@ -464,10 +463,16 @@ async function retrievePinsForMap(map) {
             </button>
             <button
               onclick="window.location.href = '/reportPin/' + '${doc.id}'"
-                style="display: block; margin-bottom: 10px; background-color: #dc3545; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"
+                style="display: block; margin-bottom: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"
               >
                 Report Pin
             </button>
+            <button
+            onClick="window.location.href = '/navigation/' + '${latitude},${longitude}'";            
+            style="display: block; margin-bottom: 10px; background-color: #dc3545; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"
+          >
+            Navigate
+          </button>
             ${
               pin.Photo
                 ? `<img src="${pin.Photo}" style="width: 100%; height: auto; margin-bottom: 10px; border-radius: 5px;">`

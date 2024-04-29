@@ -8,6 +8,7 @@ import CreatePin from "./CreatePin";
 import Maps from "./Maps";
 import ReportPin from "./ReportPin";
 import RatePin from "./RatePin";
+import Navigation from "./Navigation";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route exact path="/createPin" element={<CreatePin />} />
         <Route exact path="/reportPin/:pinID" element={<ReportPin />} />
         <Route exact path="/ratePin/:pinID" element={<RatePin />} />
+        <Route exact path="/navigation/:destination" element={<Navigation />} />
       </Routes>
     </BrowserRouter>
   );
