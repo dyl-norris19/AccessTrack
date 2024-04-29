@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Header, Footer } from "./Template";
 import "./ReportPin.css";
 import { Link } from "react-router-dom";
+import { Timestamp } from "firebase/firestore";
 
 function ReportPin() {
   const { pinID } = useParams();
@@ -25,9 +26,11 @@ function ReportPin() {
       Description: newText,
       creatorID: userId,
       PinId: pinID,
+      Timestamp: Timestamp.now(),
     };
 
     await createReport(report);
+    alert("Report Submitted");
     window.location.href = "/";
   }
 
@@ -64,30 +67,3 @@ function ReportPin() {
 }
 
 export default ReportPin;
-
-//   return (
-//     <div className="d-flex flex-column min-vh-100">
-//       <Header headerTitle={"Report Pin"} />
-//       <div className="register  flex-grow-1 d-flex">
-//         <div className="register__container">
-//           <form onSubmit={createReport}>
-//             <label>
-//               Title:
-//               <input type="text" name="Title" />
-//             </label>
-//             <label>
-//               Description:
-//               <input type="text" name="Description" />
-//             </label>
-//             <button type="submit" onSubmit="createReportMine()">
-//               Submit
-//             </button>
-//           </form>
-//         </div>
-//       </div>
-//       <Footer />
-//     </div>
-//   );
-// }
-
-// export default ReportPin;

@@ -21,7 +21,7 @@ import { GeoPoint, Timestamp } from "firebase/firestore";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiaGFsZXluZiIsImEiOiJjbHN5c3hzeTcwZ2pwMmltdXUzdHprYWlsIn0._n2hM1vDIHvaBV8fTORxIw";
 
-const Map = () => {
+function Map() {
   const mapContainerRef = useRef(null);
   //center on UNT main campus
   const [lng, setLng] = useState(-97.14);
@@ -69,6 +69,7 @@ const Map = () => {
     // Add navigation control (the +/- zoom buttons)
     map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
 
+
     // Add geolocate control to the map.
     map.addControl(
     new mapboxgl.GeolocateControl({
@@ -93,6 +94,7 @@ const Map = () => {
     */
 
     //main click handler - left click
+
     map.on("click", (e) => {
       //center the map on the coordinates of user click
       map.flyTo({
@@ -226,11 +228,9 @@ function show() {
         <div className="dropdown">
           {" "}
           {/*PIN BUTTON MENU DIV*/}
-          
-          <button className="dropbtn" > {/*removed: onClick={dropDown}*/}
+          <button className="dropbtn" onClick={dropDown}>
             Pins
           </button>{" "}
-          
           {/*INITIAL PIN MENU BUTTON*/}
           <div id="myDropdown" className="dropdown-content">
             {" "}
@@ -247,6 +247,7 @@ function show() {
             <br />
          
             {/*}
+
             <input
               type="checkbox"
               className="dropdown-group"
@@ -256,13 +257,16 @@ function show() {
             <br />
             */}
 
+
             <input
               type="checkbox"
               className="dropdown-group"
               value="Wheelchair Ramps"
+
               id="wheelchair"
               onClick={()=>showWheel("wheel")}
-        />
+             />
+
             <label className="dropdown-option">Wheelchair Ramps</label>
             <br />
             <input
@@ -271,6 +275,7 @@ function show() {
               value="Crosswalks"
               id="crosswalk"
               onClick={()=>showWheel("cross")}
+
             />
             <label className="dropdown-option">Crosswalks</label>
             <br />
@@ -280,6 +285,7 @@ function show() {
               value="Elevators"
               id="elevator"
               onClick={()=>showWheel("elev")}
+
             />
             <label className="dropdown-option">Elevators</label>
             <br />
@@ -297,7 +303,7 @@ function show() {
         {/*PIN BUTTON MENU DIV*/}
         {/*}    </div> {/*PIN POSITION DIV*/}
         <div>
-          <Popup /* ***** *****CREATE PIN POPUP***** ***** */
+          <Popup
             open={showPopup}
             closeOnDocumentClick
             onClose={handleClosePopup}
@@ -393,7 +399,7 @@ function show() {
       </div> /*MAIN DIV*/
     );
   } else {
-    return (  /* ***** *****PAGE TO RETURN IF USER IS NOT LOGGED IN***** ***** */
+    return (
       <div
         className="d-flex flex-column min-vh-100"
         style={{ backgroundColor: "#444040", color: "#6EE05B" }}
@@ -412,7 +418,7 @@ function show() {
         <div className="dropdown">
           {" "}
           {/*PIN BUTTON MENU DIV*/}
-          <button className="dropbtn"> {/*removed: onClick={dropDown}*/}
+          <button className="dropbtn">
             Pins
           </button>{" "}
           {/*INITIAL PIN MENU BUTTON*/}
@@ -439,6 +445,7 @@ function show() {
             <label className="dropdown-option">View Pins Near Me</label>
             <br />
             */}
+
 
             <input
               type="checkbox"
@@ -481,7 +488,7 @@ function show() {
         {/*PIN BUTTON MENU DIV*/}
         {/*}    </div> {/*PIN POSITION DIV*/}
         <div>
-          <Popup /* ***** *****LOGIN POPUP***** ***** */
+          <Popup
             open={showPopup}
             closeOnDocumentClick
             onClose={handleClosePopup}
@@ -570,6 +577,7 @@ async function showWheel(tags){
 
 } //end of showWheel
 
+
 // grabs the pins from the db and renders them
 async function retrievePinsForMap(map) {
   try {
@@ -611,10 +619,17 @@ async function retrievePinsForMap(map) {
             </button>
             <button
               onclick="window.location.href = '/reportPin/' + '${doc.id}'"
-                style="display: block; margin-bottom: 10px; background-color: #dc3545; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"
+
+                style="display: block; margin-bottom: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"
               >
                 Report Pin
             </button>
+            <button
+            onClick="window.location.href = '/navigation/' + '${latitude},${longitude}'";            
+            style="display: block; margin-bottom: 10px; background-color: #dc3545; color: white; border: none; border-radius: 5px; padding: 10px; cursor: pointer;"
+          >
+            Navigate
+          </button>
             ${
               pin.Photo
                 ? `<img src="${pin.Photo}" style="width: 100%; height: auto; margin-bottom: 10px; border-radius: 5px;">`

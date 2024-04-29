@@ -24,32 +24,38 @@ export function Register() {
       <Header headerTitle={"Create an Account"} />
       <div className="register  flex-grow-1 d-flex">
         <div className="register__container">
+          <label htmlFor="name" className="form-label">
+            Full Name:
+          </label>
           <input
             type="text"
             className="register__textBox"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Full Name"
           />
+          <label htmlFor="email" className="form-label">
+            E-mail Address:
+          </label>
           <input
             type="text"
             className="register__textBox"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="E-mail Address"
           />
+          <label htmlFor="password" className="form-label">
+            Password:
+          </label>
           <input
             type="password"
             className="register__textBox"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
           />
           <button className="register__btn" onClick={register}>
             Register
           </button>
           <div>
-            Already have an account? <Link to="/login">Login</Link> now.
+            Already have an account? <Link to="/login">Login now.</Link>
           </div>
         </div>
       </div>

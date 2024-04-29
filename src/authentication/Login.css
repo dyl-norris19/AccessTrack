@@ -9,17 +9,19 @@
   justify-content: center;
   background-color: #444040;
 }
-  .login__container {
+.login__container {
     display: flex;
     flex-direction: column;
     text-align: center;
     background-color: #dcdcdc;
     padding: 30px;
-  }
+    color: black;
+}
   .login__textBox {
     padding: 10px;
     font-size: 18px;
     margin-bottom: 10px;
+    color:black;
   }
   .login__btn {
     padding: 10px;
