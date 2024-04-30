@@ -42,3 +42,14 @@
     margin-left: 15px;
     color: #6F6F6F;
 }
+
+.rating-PinItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+}
+
+.rating-and-location {
+    font-size: 55px;
+}
