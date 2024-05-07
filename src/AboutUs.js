@@ -33,10 +33,14 @@ function AboutUs() {
             color: "#fff",
           }}
         >
-          AccessTrack is a user-driven application to map out accessible
-          environments. For example, allowing users to mark wheelchair ramps and
-          elevators, or give a warning where a degraded sidewalk isn't capable
-          of supporting a wheelchair.
+          AccessTrack is a user-driven web application to map how accessible an
+          environment is. Users can mark and rate points of interest using pins
+          on a map. Other users can then view those pins, filter what pins they
+          see, and rate or report pins. There is also an admin panel, mostly for
+          editing and deleting low quality or irrelevant pins. Right click to
+          add a pin, and left click to view the details of a pin. Upon clicking
+          a pin, you will also have the option to rate the pin, report it, or
+          navigate to it.
         </p>
       </div>
     </div>

@@ -314,7 +314,7 @@ function DatabaseStuff() {
   const [reportIdToDelete, setReportIdToDelete] = useState("");
 
   async function handleDeleteReport(event) {
-    event.preventDefault(); // keeps the page from reloading after submission
+    event.preventDefault();
 
     if (reportIdToDelete.trim() === "") {
       alert("Please enter a report ID to delete.");
@@ -333,7 +333,7 @@ function DatabaseStuff() {
   const [pinIdToDelete, setPinIdToDelete] = useState("");
 
   async function handleDeletePin(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
+    event.preventDefault();
 
     if (pinIdToDelete.trim() === "") {
       alert("Please enter a pin ID to delete.");
@@ -352,7 +352,7 @@ function DatabaseStuff() {
   const [ratingIdToDelete, setRatingIdToDelete] = useState("");
 
   async function handleDeleteRating(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
+    event.preventDefault();
 
     if (ratingIdToDelete.trim() === "") {
       alert("Please enter a rating ID to delete.");

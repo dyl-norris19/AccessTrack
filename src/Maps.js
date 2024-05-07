@@ -50,10 +50,8 @@ function Map() {
     setShowPopup(false);
   };
 
-
   // Initialize map when component mounts
   useEffect(() => {
-    
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       //style: "mapbox://styles/haleynf/cltvx0hq2008j01nogmol3zqa/draft",
@@ -61,7 +59,6 @@ function Map() {
       center: [lng, lat],
       zoom: zoom,
     });
-    
 
     //disable right click rotation - dont currently have a method to reset it
     map.dragRotate.disable();
@@ -69,29 +66,18 @@ function Map() {
     // Add navigation control (the +/- zoom buttons)
     map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
 
-
     // Add geolocate control to the map.
     map.addControl(
-    new mapboxgl.GeolocateControl({
+      new mapboxgl.GeolocateControl({
         positionOptions: {
-            enableHighAccuracy: true
+          enableHighAccuracy: true,
         },
         // When active the map will receive updates to the device's location as it changes.
         trackUserLocation: true,
         // Draw an arrow next to the location dot to indicate which direction the device is heading.
-        showUserHeading: true
-    })
+        showUserHeading: true,
+      })
     );
-
-    //navigation - has error(s)
-    /*
-    map.addControl(
-    new MapboxDirections({
-        accessToken: mapboxgl.accessToken
-    }),
-    'top-right'
-    );
-    */
 
     //main click handler - left click
 
@@ -113,25 +99,24 @@ function Map() {
 
     // renders all pins from the database
     retrievePinsForMap(map);
-    
+
     // Clean up on unmount
     return () => map.remove();
   }, []); //use effect end bracket
 
-
-//basic hide pin function - changes HTML display
-function hide() {
+  //basic hide pin function - changes HTML display
+  function hide() {
     let markers = document.getElementsByClassName("marker");
     for (let i = 0; i < markers.length; i++) {
-        markers[i].style.display='none';
+      markers[i].style.display = "none";
     }
-}
+  }
 
-//basic show pin function - changes HTML display
-function show() {
+  //basic show pin function - changes HTML display
+  function show() {
     let markers = document.getElementsByClassName("marker");
     for (let i = 0; i < markers.length; i++) {
-        markers[i].style.display='flex';
+      markers[i].style.display = "flex";
     }
 
     //uncheck all other checkboxes
@@ -145,8 +130,7 @@ function show() {
     checkCross.checked = false;
     checkElev.checked = false;
     checkCurb.checked = false;
-
-}
+  }
 
   //not necessary as there is enough space on the screen - can be added back in
   //function for button to dropdown menu
@@ -209,7 +193,8 @@ function show() {
   }
 
   if (user) {
-    return (  /* ***** *****PAGE TO RETURN IF USER IS LOGGED IN***** ***** */
+    return (
+      /* ***** *****PAGE TO RETURN IF USER IS LOGGED IN***** ***** */
       <div
         className="d-flex flex-column min-vh-100"
         style={{ backgroundColor: "#444040", color: "#6EE05B" }}
@@ -245,7 +230,6 @@ function show() {
             />
             <label className="dropdown-option">View All Pins</label>
             <br />
-         
             {/*}
 
             <input
@@ -256,17 +240,13 @@ function show() {
             <label className="dropdown-option">View Pins Near Me</label>
             <br />
             */}
-
-
             <input
               type="checkbox"
               className="dropdown-group"
               value="Wheelchair Ramps"
-
               id="wheelchair"
-              onClick={()=>showWheel("wheel")}
-             />
-
+              onClick={() => showWheel("wheel")}
+            />
             <label className="dropdown-option">Wheelchair Ramps</label>
             <br />
             <input
@@ -274,8 +254,7 @@ function show() {
               className="dropdown-group"
               value="Crosswalks"
               id="crosswalk"
-              onClick={()=>showWheel("cross")}
-
+              onClick={() => showWheel("cross")}
             />
             <label className="dropdown-option">Crosswalks</label>
             <br />
@@ -284,8 +263,7 @@ function show() {
               className="dropdown-group"
               value="Elevators"
               id="elevator"
-              onClick={()=>showWheel("elev")}
-
+              onClick={() => showWheel("elev")}
             />
             <label className="dropdown-option">Elevators</label>
             <br />
@@ -294,7 +272,7 @@ function show() {
               className="dropdown-group"
               value="Dropped Curbs"
               id="curb"
-              onClick={()=>showWheel("curb")}
+              onClick={() => showWheel("curb")}
             />
             <label className="dropdown-option">Dropped Curbs</label>
           </div>{" "}
@@ -418,9 +396,7 @@ function show() {
         <div className="dropdown">
           {" "}
           {/*PIN BUTTON MENU DIV*/}
-          <button className="dropbtn">
-            Pins
-          </button>{" "}
+          <button className="dropbtn">Pins</button>{" "}
           {/*INITIAL PIN MENU BUTTON*/}
           <div id="myDropdown" className="dropdown-content">
             {" "}
@@ -435,7 +411,6 @@ function show() {
             />
             <label className="dropdown-option">View All Pins</label>
             <br />
-
             {/*}
             <input
               type="checkbox"
@@ -445,14 +420,12 @@ function show() {
             <label className="dropdown-option">View Pins Near Me</label>
             <br />
             */}
-
-
             <input
               type="checkbox"
               className="dropdown-group"
               value="Wheelchair Ramps"
               id="wheelchair"
-              onClick={()=>showWheel("wheel")}
+              onClick={() => showWheel("wheel")}
             />
             <label className="dropdown-option">Wheelchair Ramps</label>
             <br />
@@ -461,7 +434,7 @@ function show() {
               className="dropdown-group"
               value="Crosswalks"
               id="crosswalk"
-              onClick={()=>showWheel("cross")}
+              onClick={() => showWheel("cross")}
             />
             <label className="dropdown-option">Crosswalks</label>
             <br />
@@ -470,7 +443,7 @@ function show() {
               className="dropdown-group"
               value="Elevators"
               id="elevator"
-              onClick={()=>showWheel("elev")}
+              onClick={() => showWheel("elev")}
             />
             <label className="dropdown-option">Elevators</label>
             <br />
@@ -479,7 +452,7 @@ function show() {
               className="dropdown-group"
               value="Dropped Curbs"
               id="curb"
-              onClick={()=>showWheel("curb")}
+              onClick={() => showWheel("curb")}
             />
             <label className="dropdown-option">Dropped Curbs</label>
           </div>{" "}
@@ -519,10 +492,10 @@ function show() {
       </div> /*MAIN DIV*/
     );
   }
-}; //end of const Map
+} //end of const Map
 
 //current showWheel function
-async function showWheel(tags){
+async function showWheel(tags) {
   let markers = document.getElementsByClassName("marker"); //grab pins to change their display
   let viewAll = document.getElementById("viewall"); //variable to uncheck view all checkbox
   let checks = document.getElementsByClassName("dropdown-group");
@@ -533,50 +506,48 @@ async function showWheel(tags){
 
   //count the number of checked boxes
   for (let i = 0; i < checks.length; i++) {
-    if(checks[i].checked == true){
-      checkCount+=1;
+    if (checks[i].checked == true) {
+      checkCount += 1;
     }
   }
-  
+
   //hide all pins - but only the first time a non-"view all pins" checkbox is checked
   for (let i = 0; i < markers.length; i++) {
-    if(checkCount <= 1){
-    markers[i].style.display='none';
+    if (checkCount <= 1) {
+      markers[i].style.display = "none";
     }
   }
-  
+
   let doc = await retrievePins(); //retrieve actual pins and their data
-  
+
   //for each pin, check for the tag passed in and change display of the correseponding pin
   doc.forEach(async (doc) => {
     const pin = doc.data();
 
-    if(tags == "wheel"){
-      if (pin.Wheel == "True"){
-        markers[count].style.display='flex';
+    if (tags == "wheel") {
+      if (pin.Wheel == "True") {
+        markers[count].style.display = "flex";
       }
     }
-    if(tags == "cross"){
-      if (pin.Cross == "True"){
-        markers[count].style.display='flex';
+    if (tags == "cross") {
+      if (pin.Cross == "True") {
+        markers[count].style.display = "flex";
       }
     }
-    if(tags == "elev"){
-      if (pin.Elev == "True"){
-        markers[count].style.display='flex';
+    if (tags == "elev") {
+      if (pin.Elev == "True") {
+        markers[count].style.display = "flex";
       }
     }
-    if(tags == "curb"){
-      if (pin.Curb == "True"){
-        markers[count].style.display='flex';
+    if (tags == "curb") {
+      if (pin.Curb == "True") {
+        markers[count].style.display = "flex";
       }
     }
-    
-    count+=1; //move index to next pin
-  })
 
+    count += 1; //move index to next pin
+  });
 } //end of showWheel
-
 
 // grabs the pins from the db and renders them
 async function retrievePinsForMap(map) {
