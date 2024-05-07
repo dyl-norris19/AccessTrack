@@ -37,10 +37,11 @@ function AboutUs() {
           environment is. Users can mark and rate points of interest using pins
           on a map. Other users can then view those pins, filter what pins they
           see, and rate or report pins. There is also an admin panel, mostly for
-          editing and deleting low quality or irrelevant pins. Right click to
-          add a pin, and left click to view the details of a pin. Upon clicking
-          a pin, you will also have the option to rate the pin, report it, or
-          navigate to it.
+          editing and deleting low quality or irrelevant pins.
+          <br />
+          Right click to add a pin, and left click to view the details of a pin.
+          Upon clicking a pin, you will also have the option to rate the pin,
+          report it, or navigate to it.
         </p>
       </div>
     </div>
